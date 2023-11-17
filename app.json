@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "plongeur",
-    "slug": "plongeur",
+    "name": "appliplongeur",
+    "slug": "appliplongeur",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,7 +27,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "359a67e8-41eb-442c-8320-68e2005269e3"
+        "projectId": "fb66860b-eed1-470a-bb41-14639aa2f8ae"
       }
     },
     "owner": "mat39100"

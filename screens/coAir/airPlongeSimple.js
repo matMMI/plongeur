@@ -15,7 +15,7 @@ import main from "../../styles/main";
 
 const AirPlongeSimple = () => {
   const [startDate, setStartDate] = useState(new Date());
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState("00:00");
   const handleDateChange = (selectedDate) => {
     const currentTime = selectedDate || new Date();
     setTime(

@@ -6,6 +6,7 @@ const main = {
   },
   container: {
     paddingTop: 20,
+    marginBottom: 40,
     overflow: "hidden",
     borderRadius: 7,
     borderWidth: 3,

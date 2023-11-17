@@ -82,7 +82,6 @@ const App = () => {
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Accueil">
             <Stack.Screen name="Accueil" component={Accueil} />
-
             <Stack.Screen
               options={{ title: "PLONGÉ SIMPLE" }}
               name="AirPlongeSimple"

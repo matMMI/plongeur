@@ -34,7 +34,6 @@ const convertInput = (value) => {
 
 export const DatePickerComponent = ({ onDateChange }) => {
   const [showPicker, setShowPicker] = useState(false);
-
   const handlePress = () => {
     setShowPicker(true);
   };
