@@ -57,19 +57,27 @@ const AirPlongeSimple = () => {
         <View style={main.inputContainer}>
           <View style={[result.resultParent, main.mb_15]}>
             <Text style={result.resultTitle}>@6m</Text>
-            <Text style={result.tag}>3</Text>
+            <View style={result.tagContainer}>
+              <Text style={result.tagText}>3</Text>
+            </View>
           </View>
           <View style={[result.resultParent, main.mb_15]}>
             <Text style={result.resultTitle}>@3m</Text>
-            <Text style={result.tag}>29</Text>
+            <View style={result.tagContainer}>
+              <Text style={result.tagText}>29</Text>
+            </View>
           </View>
           <View style={[result.resultParent, main.mb_15]}>
             <Text style={result.resultTitle}>HEURE DE SORTIE</Text>
-            <Text style={result.tag}>19:11</Text>
+            <View style={result.tagContainer}>
+              <Text style={result.tagText}>19:11</Text>
+            </View>
           </View>
           <View style={result.resultParent}>
             <Text style={result.resultTitle}>GROUPE PLONGÉ SUCCESSIF</Text>
-            <Text style={result.tag}>K</Text>
+            <View style={result.tagContainer}>
+              <Text style={result.tagText}>K</Text>
+            </View>
           </View>
         </View>
       </View>

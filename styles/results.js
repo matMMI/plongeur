@@ -11,8 +11,7 @@ const results = {
     textTransform: "uppercase",
     fontSize: 15,
   },
-  tag: {
-    color: "#fff",
+  tagContainer: {
     borderWidth: 2,
     borderColor: color.green,
     backgroundColor: color.greenDark,
@@ -20,6 +19,10 @@ const results = {
     paddingHorizontal: 10,
     borderRadius: 7,
     overflow: "hidden",
+  },
+  tagText: {
+    textAlign: "center",
+    color: "#fff",
     fontSize: 17,
     letterSpacing: 1,
   },

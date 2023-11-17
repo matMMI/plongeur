@@ -1,7 +1,7 @@
 import color from "./colors";
 const main = {
   parentContainer: {
-    paddingTop: 10,
+    padding: 10,
     backgroundColor: "#000", // Dark background color
   },
   container: {
