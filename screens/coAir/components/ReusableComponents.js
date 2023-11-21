@@ -1,13 +1,10 @@
 import React, { useState, createContext, useContext } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { TextInput, TouchableOpacity, Text } from "react-native";
-
 //------------ STYLE ------------//
-
 import input from "../../../styles/inputs";
 import button from "../../../styles/buttons";
 //-------------------------------//
-
 const GlobalStateContext = createContext();
 export const useGlobalState = () => useContext(GlobalStateContext);
 export const GlobalStateProvider = ({ children }) => {
@@ -31,7 +28,6 @@ const convertInput = (value) => {
     .replace(" ", ".");
 };
 //--------------------------//
-
 export const DatePickerComponent = ({ onDateChange }) => {
   const [showPicker, setShowPicker] = useState(false);
   const handlePress = () => {
@@ -59,7 +55,6 @@ export const DatePickerComponent = ({ onDateChange }) => {
     </>
   );
 };
-
 export const MinutesInputComponent = () => {
   const { minutes, setMinutes } = useGlobalState();
   const handleMinutesChange = (text) => {
@@ -75,14 +70,12 @@ export const MinutesInputComponent = () => {
     />
   );
 };
-
 export const DepthInputComponent = () => {
   const { depth, setDepth } = useGlobalState();
   const handleDepthChange = (text) => {
     const normalizedText = convertInput(text);
     setDepth(normalizedText);
   };
-
   return (
     <TextInput
       style={input.inputCoAir}

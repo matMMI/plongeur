@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import { useGlobalState } from "./components/ReusableComponents";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import gpsTarArray from "../../utils/gpsTar.js";
-import profondeurDtMille from "../../utils/profondeurDtMille.js";
+import { pdtmille } from "../../utils/pdtmille";
 import {
   DatePickerComponent,
   MinutesInputComponent,
@@ -14,26 +13,11 @@ import { formaterHeureLocale } from "../../utils/calculs";
 import title from "../../styles/titles";
 import result from "../../styles/results";
 import main from "../../styles/main";
-//------ Ajout de la nouvelle fonction de calcul de l'heure de sortie ------//
-function calculerHeureSortie(departPlongee, tempsFond, tempsPaliers) {
-  const tempsFondMs = tempsFond * 60 * 1000;
-  const tempsPaliersMs =
-    tempsPaliers.reduce((acc, val) => acc + val, 0) * 60 * 1000;
-  const I3Ms = 1 * 60 * 60 * 1000;
-  const I8Ms = 30 * 60 * 1000;
-  const I9Ms = I8Ms + I3Ms + tempsPaliersMs;
-  const B6 = new Date(departPlongee.getTime() + tempsFondMs);
-  const HS = new Date(B6.getTime() + I9Ms);
-  return HS;
-}
-// ------------- //
 const AirPlongeSimple = () => {
+  console.log("Depth received:", depth);
   const { date, minutes, depth } = useGlobalState();
-  const [time, setTime] = useState("00:00");
-  const [ds, setDs] = useState(new Date());
-  const [dt, setDt] = useState(0);
-  const [pal, setPal] = useState([]);
   const [heureSortie, setHeureSortie] = useState(new Date());
+  const [time, setTime] = useState("00:00");
   const handleDateChange = (selectedDate) => {
     const currentTime = selectedDate || new Date();
     setTime(
@@ -43,11 +27,29 @@ const AirPlongeSimple = () => {
       })
     );
   };
+  function calculerHeureSortie(ds, dt, depth) {
+    const dataForDepth = pdtmille.find(
+      (data) => data.profondeurDtMill <= parseFloat(depth)
+    );
+
+    const dtMs = dt * 60 * 1000;
+    const palierTimesMs = Object.keys(dataForDepth)
+      .filter(
+        (key) =>
+          key.endsWith("m") &&
+          dataForDepth[key] !== "Hors table" &&
+          dataForDepth[key] !== ""
+      )
+      .map((key) => parseInt(dataForDepth[key]) * 60 * 1000);
+    const sumPaliersMs = palierTimesMs.reduce((acc, time) => acc + time, 0);
+    const hs = new Date(ds.getTime() + dtMs + sumPaliersMs);
+    return hs;
+  }
   useEffect(() => {
     const dt = parseFloat(minutes);
-    const hs = calculerHeureSortie(date, dt);
+    const hs = calculerHeureSortie(date, dt, depth);
     setHeureSortie(hs);
-  }, [date, minutes]);
+  }, [date, minutes, depth]);
   return (
     <KeyboardAwareScrollView style={main.parentContainer}>
       <View style={main.container}>
