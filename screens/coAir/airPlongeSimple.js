@@ -27,10 +27,18 @@ const AirPlongeSimple = () => {
       })
     );
   };
+
   function calculerHeureSortie(ds, dt, depth) {
     const dataForDepth = pdtmille.find(
       (data) => data.profondeurDtMill <= parseFloat(depth)
     );
+
+    // Vérifiez si dataForDepth est défini
+    if (!dataForDepth) {
+      // Lancez une erreur ou retournez une valeur par défaut
+      console.log(`Aucune donnée trouvée pour la profondeur : ${depth}`);
+      return;
+    }
 
     const dtMs = dt * 60 * 1000;
     const palierTimesMs = Object.keys(dataForDepth)
@@ -101,7 +109,7 @@ const AirPlongeSimple = () => {
             <Text style={result.resultTitle}>HEURE DE SORTIE</Text>
             <View style={result.tagContainer}>
               <Text style={result.tagText}>
-                {formaterHeureLocale(heureSortie)}
+                {heureSortie && formaterHeureLocale(heureSortie)}
               </Text>
             </View>
           </View>
