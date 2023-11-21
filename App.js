@@ -1,7 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { Store } from "./redux/store";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { GlobalStateProvider } from "./screens/coAir/components/ReusableComponents";
 import { View, Text, Pressable, ScrollView } from "react-native";
@@ -79,7 +79,7 @@ const App = () => {
   return (
     <Provider store={Store}>
       <GlobalStateProvider>
-        <NavigationContainer>
+        <NavigationContainer theme={DarkTheme}>
           <Stack.Navigator initialRouteName="Accueil">
             <Stack.Screen name="Accueil" component={Accueil} />
             <Stack.Screen

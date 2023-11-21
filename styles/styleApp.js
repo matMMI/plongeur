@@ -1,7 +1,10 @@
+// styleApp.js
+
 import { StyleSheet, Dimensions } from "react-native";
 const totalHeight = Dimensions.get("window").height;
 import colors from "../styles/colors";
-const styles = StyleSheet.create({
+
+const darkTheme = {
   container: {
     padding: 10,
     height: totalHeight,
@@ -29,7 +32,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
     marginRight: 10,
-
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
@@ -64,5 +66,8 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     backgroundColor: colors.blue2,
   },
-});
+};
+
+const styles = StyleSheet.create(darkTheme);
+
 export default styles;

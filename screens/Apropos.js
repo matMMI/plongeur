@@ -22,7 +22,7 @@ const Apropos = () => {
         </View>
 
         <View>
-          <Text style={styles.dev}>Développée par Mathis T. et Clément F.</Text>
+          <Text style={styles.dev}>Développée par Mathis T.</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -1,19 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
+import { useGlobalState } from "./components/ReusableComponents";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import gpsTarArray from "../../utils/gpsTar.js";
+import profondeurDtMille from "../../utils/profondeurDtMille.js";
 import {
   DatePickerComponent,
   MinutesInputComponent,
   DepthInputComponent,
 } from "./components/ReusableComponents";
+import { formaterHeureLocale } from "../../utils/calculs";
 // --- STYLES --- //
 import title from "../../styles/titles";
 import result from "../../styles/results";
 import main from "../../styles/main";
+//------ Ajout de la nouvelle fonction de calcul de l'heure de sortie ------//
+function calculerHeureSortie(departPlongee, tempsFond, tempsPaliers) {
+  const tempsFondMs = tempsFond * 60 * 1000;
+  const tempsPaliersMs =
+    tempsPaliers.reduce((acc, val) => acc + val, 0) * 60 * 1000;
+  const I3Ms = 1 * 60 * 60 * 1000;
+  const I8Ms = 30 * 60 * 1000;
+  const I9Ms = I8Ms + I3Ms + tempsPaliersMs;
+  const B6 = new Date(departPlongee.getTime() + tempsFondMs);
+  const HS = new Date(B6.getTime() + I9Ms);
+  return HS;
+}
 // ------------- //
 const AirPlongeSimple = () => {
-  const [startDate, setStartDate] = useState(new Date());
+  const { date, minutes, depth } = useGlobalState();
   const [time, setTime] = useState("00:00");
+  const [ds, setDs] = useState(new Date());
+  const [dt, setDt] = useState(0);
+  const [pal, setPal] = useState([]);
+  const [heureSortie, setHeureSortie] = useState(new Date());
   const handleDateChange = (selectedDate) => {
     const currentTime = selectedDate || new Date();
     setTime(
@@ -21,48 +41,13 @@ const AirPlongeSimple = () => {
         hour: "2-digit",
         minute: "2-digit",
       })
-    ); // Format de l'heure selon votre besoin
-    setStartDate(currentTime); // Si vous souhaitez également mettre à jour la date de départ
+    );
   };
-  const [ds, setDs] = useState(new Date()); // DS: Départ Surface
-  const [dt, setDt] = useState(0); // DT: Durée de Travail
-  const [dr, setDr] = useState(0); // DR: Durée de Remontée
-  const [pal, setPal] = useState([]); // PAL: Paliers (Array de durées pour chaque palier)
-  const [chPal, setChPal] = useState([]); // ch/PAL: Changements de Palier (Array de durées)
-  // Calculer le départ fond (DF)
-  const calculerDF = () => {
-    const df = new Date(ds.getTime() + dt * 60000); // 60000 ms dans une minute
-    return df;
-  };
-  // Calculer la durée totale de remontée (DTR)
-  const calculerDTR = () => {
-    const totalPaliers = pal.reduce((acc, curr) => acc + curr, 0); // Somme des durées de paliers
-    const totalChPal = chPal.reduce((acc, curr) => acc + curr, 0); // Somme des changements de palier
-    const dtr = dr + totalPaliers + totalChPal;
-    return dtr;
-  };
-  // Calculer l'heure de sortie (HS)
-  const calculerHS = () => {
-    const df = calculerDF();
-    const dtr = calculerDTR();
-    const hs = new Date(df.getTime() + dtr * 60000); // Convertir en millisecondes
-    return hs;
-  };
-
-  const [departFond, setDepartFond] = useState(new Date());
-  const [dureeTotalRemontee, setDureeTotalRemontee] = useState(0);
-  const [heureSortie, setHeureSortie] = useState(new Date());
-
   useEffect(() => {
-    const df = calculerDF();
-    setDepartFond(df);
-
-    const dtr = calculerDTR();
-    setDureeTotalRemontee(dtr);
-
-    const hs = calculerHS();
+    const dt = parseFloat(minutes);
+    const hs = calculerHeureSortie(date, dt);
     setHeureSortie(hs);
-  }, [ds, dt, dr, pal, chPal]);
+  }, [date, minutes]);
   return (
     <KeyboardAwareScrollView style={main.parentContainer}>
       <View style={main.container}>
@@ -93,9 +78,15 @@ const AirPlongeSimple = () => {
         </View>
         <View style={main.inputContainer}>
           <View style={[result.resultParent, main.mb_15]}>
-            <Text style={result.resultTitle}>@6m</Text>
+            <Text style={result.resultTitle}>@9m</Text>
             <View style={result.tagContainer}>
               <Text style={result.tagText}>3</Text>
+            </View>
+          </View>
+          <View style={[result.resultParent, main.mb_15]}>
+            <Text style={result.resultTitle}>@6m</Text>
+            <View style={result.tagContainer}>
+              <Text style={result.tagText}>29</Text>
             </View>
           </View>
           <View style={[result.resultParent, main.mb_15]}>
@@ -108,10 +99,7 @@ const AirPlongeSimple = () => {
             <Text style={result.resultTitle}>HEURE DE SORTIE</Text>
             <View style={result.tagContainer}>
               <Text style={result.tagText}>
-                {heureSortie.toLocaleTimeString("fr-FR", {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                {formaterHeureLocale(heureSortie)}
               </Text>
             </View>
           </View>
