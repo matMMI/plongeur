@@ -20,15 +20,22 @@ const AirPlongeSimple = () => {
   };
   const [time, setTime] = useState("18:00");
   const handleDateChange = (selectedDate) => {
-    const currentTime = selectedDate || new Date();
+    const newTime = selectedDate || new Date();
     setTime(
-      currentTime.toLocaleTimeString("fr-FR", {
+      newTime.toLocaleTimeString("fr-FR", {
         hour: "2-digit",
         minute: "2-digit",
       })
     );
+    setDepartureTime(newTime);
   };
-  const [departureTime, setDepartureTime] = useState(new Date());
+  const [departureTime, setDepartureTime] = useState(() => {
+    const initialTime = new Date();
+    const [hours, minutes] = "18:00".split(":").map(Number);
+    initialTime.setHours(hours, minutes, 0, 0);
+    return initialTime;
+  });
+
   const [workDuration, setWorkDuration] = useState(0);
   const [depth, setDepth] = useState(0);
   const [exitTime, setExitTime] = useState("");
