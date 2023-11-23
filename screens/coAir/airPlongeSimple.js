@@ -19,6 +19,7 @@ const AirPlongeSimple = () => {
     setDepth(parseInt(newDepth, 10));
   };
   const [time, setTime] = useState("18:00");
+  const [gps, setGps] = useState("");
   const handleDateChange = (selectedDate) => {
     const newTime = selectedDate || new Date();
     setTime(
@@ -54,6 +55,9 @@ const AirPlongeSimple = () => {
     const DTInDays = workDuration / 1440;
     const P_DT = depth + DTInDays;
     const pdtmilleEntry = findPdtmilleEntry(P_DT);
+    if (pdtmilleEntry) {
+      setGps(pdtmilleEntry.GPS);
+    }
     const ch_pal =
       (["15m", "12m", "9m", "6m", "3m"].reduce((count, palier) => {
         return pdtmilleEntry && pdtmilleEntry[palier] ? count + 1 : count;
@@ -129,6 +133,12 @@ const AirPlongeSimple = () => {
                 {exitTime}
                 {/* résultat heure de sortie (HS) */}
               </Text>
+            </View>
+          </View>
+          <View style={[result.resultParent, main.mb_15]}>
+            <Text style={result.resultTitle}>GPS</Text>
+            <View style={result.tagContainer}>
+              <Text style={result.tagText}>{gps}</Text>
             </View>
           </View>
         </View>
