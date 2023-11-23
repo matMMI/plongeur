@@ -284,7 +284,7 @@ export const pdtmille = [
     "12m": "",
     "9m": 1,
     "6m": 8,
-    "3m": 34,
+    m: 34,
     GPS: "L",
   },
   {

@@ -46,7 +46,7 @@ export const DatePickerComponent = ({ onDateChange }) => {
               onDateChange(date);
             }
           }}
-          is24Hour={true} // Utiliser le format 24h selon votre besoin
+          is24Hour={true}
         />
       )}
       <TouchableOpacity style={button.button} onPress={handlePress}>
@@ -55,7 +55,7 @@ export const DatePickerComponent = ({ onDateChange }) => {
     </>
   );
 };
-export const MinutesInputComponent = () => {
+export const MinutesInputComponent = ({ onMinutesChange }) => {
   const { minutes, setMinutes } = useGlobalState();
   const handleMinutesChange = (text) => {
     const normalizedText = convertInput(text);
@@ -66,11 +66,15 @@ export const MinutesInputComponent = () => {
       style={input.inputCoAir}
       value={String(minutes)}
       keyboardType="numeric"
-      onChangeText={handleMinutesChange}
+      onChangeText={(text) => {
+        const normalizedText = convertInput(text);
+        onMinutesChange(normalizedText);
+      }}
     />
   );
 };
-export const DepthInputComponent = () => {
+
+export const DepthInputComponent = ({ onDepthChange }) => {
   const { depth, setDepth } = useGlobalState();
   const handleDepthChange = (text) => {
     const normalizedText = convertInput(text);
@@ -81,7 +85,10 @@ export const DepthInputComponent = () => {
       style={input.inputCoAir}
       value={depth}
       keyboardType="numeric"
-      onChangeText={handleDepthChange}
+      onChangeText={(text) => {
+        const normalizedText = convertInput(text);
+        onDepthChange(normalizedText);
+      }}
     />
   );
 };

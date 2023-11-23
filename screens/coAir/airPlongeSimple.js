@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
-import { useGlobalState } from "./components/ReusableComponents";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { pdt } from "../../utils/pdt";
 import { pdtmille } from "../../utils/pdtmille";
+import { profSecPlonge } from "../../utils/profondeurSecondePlonge";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   DatePickerComponent,
   MinutesInputComponent,
   DepthInputComponent,
 } from "./components/ReusableComponents";
-import { formaterHeureLocale } from "../../utils/calculs";
 // --- STYLES --- //
 import title from "../../styles/titles";
 import result from "../../styles/results";
 import main from "../../styles/main";
 const AirPlongeSimple = () => {
-  console.log("Depth received:", depth);
-  const { date, minutes, depth } = useGlobalState();
-  const [heureSortie, setHeureSortie] = useState(new Date());
+  const handleDurationChange = (newDuration) => {
+    setWorkDuration(parseInt(newDuration, 10));
+  };
+
+  const handleDepthChange = (newDepth) => {
+    setDepth(parseInt(newDepth, 10));
+  };
   const [time, setTime] = useState("00:00");
   const handleDateChange = (selectedDate) => {
     const currentTime = selectedDate || new Date();
@@ -27,37 +31,50 @@ const AirPlongeSimple = () => {
       })
     );
   };
-
-  function calculerHeureSortie(ds, dt, depth) {
-    const dataForDepth = pdtmille.find(
-      (data) => data.profondeurDtMill <= parseFloat(depth)
+  const [departureTime, setDepartureTime] = useState(new Date());
+  const [workDuration, setWorkDuration] = useState(0);
+  const [depth, setDepth] = useState(0);
+  const [exitTime, setExitTime] = useState("");
+  const findPdtmilleEntry = (P_DT) => {
+    return pdtmille.find((entry) => entry.profondeurDtMill === P_DT);
+  };
+  const calculateExitTime = () => {
+    const DTInDays = workDuration / 1440;
+    const P_DT = depth + DTInDays;
+    const pdtmilleEntry = findPdtmilleEntry(P_DT);
+    const ch_pal =
+      (["15m", "12m", "9m", "6m", "3m"].reduce((count, palier) => {
+        return pdtmilleEntry && pdtmilleEntry[palier] ? count + 1 : count;
+      }, 0) *
+        (30 / 60)) /
+      24;
+    const DR = Math.ceil(
+      ["15m", "12m", "9m", "6m", "3m"]
+        .map((palier, index) =>
+          pdtmilleEntry && pdtmilleEntry[palier] >= 1
+            ? (depth - index * 3) / 12
+            : 0
+        )
+        .reduce((max, time) => Math.max(max, time), 0)
     );
-
-    // Vérifiez si dataForDepth est défini
-    if (!dataForDepth) {
-      // Lancez une erreur ou retournez une valeur par défaut
-      console.log(`Aucune donnée trouvée pour la profondeur : ${depth}`);
-      return;
-    }
-
-    const dtMs = dt * 60 * 1000;
-    const palierTimesMs = Object.keys(dataForDepth)
-      .filter(
-        (key) =>
-          key.endsWith("m") &&
-          dataForDepth[key] !== "Hors table" &&
-          dataForDepth[key] !== ""
-      )
-      .map((key) => parseInt(dataForDepth[key]) * 60 * 1000);
-    const sumPaliersMs = palierTimesMs.reduce((acc, time) => acc + time, 0);
-    const hs = new Date(ds.getTime() + dtMs + sumPaliersMs);
-    return hs;
-  }
+    const sumOfPalierTimes =
+      ["15m", "12m", "9m", "6m", "3m"].reduce(
+        (sum, palier) => sum + ((pdtmilleEntry && pdtmilleEntry[palier]) || 0),
+        0
+      ) / 24;
+    const DTRInDays = ch_pal + DR + sumOfPalierTimes;
+    const exitDateTime = new Date(
+      departureTime.getTime() + (DTInDays + DTRInDays) * 86400000
+    );
+    const exitTimeFormatted = exitDateTime.toLocaleTimeString("fr-FR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    setExitTime(exitTimeFormatted);
+  };
   useEffect(() => {
-    const dt = parseFloat(minutes);
-    const hs = calculerHeureSortie(date, dt, depth);
-    setHeureSortie(hs);
-  }, [date, minutes, depth]);
+    calculateExitTime();
+  }, [departureTime, workDuration, depth]);
   return (
     <KeyboardAwareScrollView style={main.parentContainer}>
       <View style={main.container}>
@@ -75,48 +92,25 @@ const AirPlongeSimple = () => {
               <Text style={main.inputLabel}>DURÉE DE TRAVAIL</Text>
               <Text style={main.inputLabel}>(MINUTES)</Text>
             </View>
-            <MinutesInputComponent />
+            <MinutesInputComponent onMinutesChange={handleDurationChange} />
           </View>
           <View style={title.subTitle}>
             <Text style={main.inputLabel}>PROFONDEUR</Text>
             <Text style={main.inputLabel}>(MÈTRES)</Text>
           </View>
-          <DepthInputComponent />
+          <DepthInputComponent onDepthChange={handleDepthChange} />
         </View>
         <View style={main.header}>
           <Text style={title.headerText}>PALIERS</Text>
         </View>
         <View style={main.inputContainer}>
           <View style={[result.resultParent, main.mb_15]}>
-            <Text style={result.resultTitle}>@9m</Text>
-            <View style={result.tagContainer}>
-              <Text style={result.tagText}>3</Text>
-            </View>
-          </View>
-          <View style={[result.resultParent, main.mb_15]}>
-            <Text style={result.resultTitle}>@6m</Text>
-            <View style={result.tagContainer}>
-              <Text style={result.tagText}>29</Text>
-            </View>
-          </View>
-          <View style={[result.resultParent, main.mb_15]}>
-            <Text style={result.resultTitle}>@3m</Text>
-            <View style={result.tagContainer}>
-              <Text style={result.tagText}>29</Text>
-            </View>
-          </View>
-          <View style={[result.resultParent, main.mb_15]}>
             <Text style={result.resultTitle}>HEURE DE SORTIE</Text>
             <View style={result.tagContainer}>
               <Text style={result.tagText}>
-                {heureSortie && formaterHeureLocale(heureSortie)}
+                {exitTime}
+                {/* résultat heure de sortie (HS) */}
               </Text>
-            </View>
-          </View>
-          <View style={result.resultParent}>
-            <Text style={result.resultTitle}>GROUPE PLONGÉ SUCCESSIF</Text>
-            <View style={result.tagContainer}>
-              <Text style={result.tagText}>K</Text>
             </View>
           </View>
         </View>
