@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
-import { pdt } from "../../utils/pdt";
 import { pdtmille } from "../../utils/pdtmille";
-import { profSecPlonge } from "../../utils/profondeurSecondePlonge";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   DatePickerComponent,
@@ -17,11 +15,10 @@ const AirPlongeSimple = () => {
   const handleDurationChange = (newDuration) => {
     setWorkDuration(parseInt(newDuration, 10));
   };
-
   const handleDepthChange = (newDepth) => {
     setDepth(parseInt(newDepth, 10));
   };
-  const [time, setTime] = useState("00:00");
+  const [time, setTime] = useState("18:00");
   const handleDateChange = (selectedDate) => {
     const currentTime = selectedDate || new Date();
     setTime(
@@ -36,7 +33,15 @@ const AirPlongeSimple = () => {
   const [depth, setDepth] = useState(0);
   const [exitTime, setExitTime] = useState("");
   const findPdtmilleEntry = (P_DT) => {
-    return pdtmille.find((entry) => entry.profondeurDtMill === P_DT);
+    const sortedPdtmille = [...pdtmille].sort(
+      (a, b) => a.profondeurDtMill - b.profondeurDtMill
+    );
+    for (let entry of sortedPdtmille) {
+      if (entry.profondeurDtMill >= P_DT) {
+        return entry;
+      }
+    }
+    return sortedPdtmille[sortedPdtmille.length - 1];
   };
   const calculateExitTime = () => {
     const DTInDays = workDuration / 1440;
@@ -92,13 +97,19 @@ const AirPlongeSimple = () => {
               <Text style={main.inputLabel}>DURÉE DE TRAVAIL</Text>
               <Text style={main.inputLabel}>(MINUTES)</Text>
             </View>
-            <MinutesInputComponent onMinutesChange={handleDurationChange} />
+            <MinutesInputComponent
+              onMinutesChange={handleDurationChange}
+              workDuration={workDuration}
+            />
           </View>
           <View style={title.subTitle}>
             <Text style={main.inputLabel}>PROFONDEUR</Text>
             <Text style={main.inputLabel}>(MÈTRES)</Text>
           </View>
-          <DepthInputComponent onDepthChange={handleDepthChange} />
+          <DepthInputComponent
+            onDepthChange={handleDepthChange}
+            depth={depth} // passez depth comme prop
+          />
         </View>
         <View style={main.header}>
           <Text style={title.headerText}>PALIERS</Text>

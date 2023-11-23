@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, createContext, useContext, useEffect } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { TextInput, TouchableOpacity, Text } from "react-native";
 //------------ STYLE ------------//
@@ -55,40 +55,47 @@ export const DatePickerComponent = ({ onDateChange }) => {
     </>
   );
 };
-export const MinutesInputComponent = ({ onMinutesChange }) => {
-  const { minutes, setMinutes } = useGlobalState();
+export const MinutesInputComponent = ({ onMinutesChange, workDuration }) => {
+  const { setMinutes } = useGlobalState();
+  const [localMinutes, setLocalMinutes] = useState(String(workDuration));
+  useEffect(() => {
+    setLocalMinutes(String(workDuration));
+  }, [workDuration]);
   const handleMinutesChange = (text) => {
     const normalizedText = convertInput(text);
-    setMinutes(normalizedText);
+    setLocalMinutes(normalizedText);
+    onMinutesChange(normalizedText);
   };
   return (
     <TextInput
       style={input.inputCoAir}
-      value={String(minutes)}
+      value={localMinutes}
       keyboardType="numeric"
-      onChangeText={(text) => {
-        const normalizedText = convertInput(text);
-        onMinutesChange(normalizedText);
-      }}
+      onChangeText={handleMinutesChange}
     />
   );
 };
 
-export const DepthInputComponent = ({ onDepthChange }) => {
-  const { depth, setDepth } = useGlobalState();
+export const DepthInputComponent = ({ onDepthChange, depth }) => {
+  const { setDepth } = useGlobalState();
+  const [localDepth, setLocalDepth] = useState(depth);
+
+  useEffect(() => {
+    setLocalDepth(depth);
+  }, [depth]);
+
   const handleDepthChange = (text) => {
     const normalizedText = convertInput(text);
-    setDepth(normalizedText);
+    setLocalDepth(normalizedText); // Mettez à jour l'état local
+    onDepthChange(normalizedText); // Notify the parent component
   };
+
   return (
     <TextInput
       style={input.inputCoAir}
-      value={depth}
+      value={String(localDepth)} // Assurez-vous que c'est une chaîne
       keyboardType="numeric"
-      onChangeText={(text) => {
-        const normalizedText = convertInput(text);
-        onDepthChange(normalizedText);
-      }}
+      onChangeText={handleDepthChange}
     />
   );
 };
