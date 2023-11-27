@@ -6,7 +6,7 @@ const main = {
   },
   container: {
     paddingTop: 20,
-    marginBottom: 40,
+    marginBottom: 100,
     overflow: "hidden",
     borderRadius: 7,
     borderWidth: 3,
@@ -21,8 +21,14 @@ const main = {
   },
 
   inputContainer: {
-    margin: 10,
-    padding: 20,
+    marginHorizontal: 10,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
+  inputContainerResult: {
+    marginHorizontal: 10,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
 
   inputLabel: {
@@ -30,6 +36,7 @@ const main = {
     fontSize: 18,
     textAlign: "center",
     marginBottom: 5,
+    textTransform: "uppercase",
   },
   // ESPACEMENT
   mb_15: {
@@ -40,6 +47,15 @@ const main = {
   },
   mb_30: {
     marginBottom: 30,
+  },
+  my_15: {
+    marginVertical: 15,
+  },
+  my_20: {
+    marginVertical: 20,
+  },
+  my_30: {
+    marginVertical: 30,
   },
 };
 

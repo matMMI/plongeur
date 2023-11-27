@@ -21,11 +21,18 @@ export const GlobalStateProvider = ({ children }) => {
 };
 //------- TRAITEMENT -------//
 const convertInput = (value) => {
-  return value
+  let normalized = value
     .replace(",", ".")
     .replace(";", ".")
     .replace("-", ".")
-    .replace(" ", ".");
+    .replace(" ", ".")
+    .replace(/^[0]+([1-9])/, "$1") // Supprime les zéros en tête sauf pour les décimaux
+    .replace(/^-/, "");
+  if (/^\./.test(normalized)) {
+    normalized = "0" + normalized; // Ajoute un '0' devant un point pour former '0.x'
+  }
+
+  return normalized;
 };
 //--------------------------//
 export const DatePickerComponent = ({ onDateChange }) => {
@@ -33,19 +40,21 @@ export const DatePickerComponent = ({ onDateChange }) => {
   const handlePress = () => {
     setShowPicker(true);
   };
+  const handleChange = (event, selectedDate) => {
+    setShowPicker(false);
+    if (selectedDate) {
+      onDateChange(selectedDate);
+    }
+  };
   return (
     <>
       {showPicker && (
         <DateTimePicker
+          testID="dateTimePicker"
           value={new Date()}
           mode={"time"}
           display="default"
-          onChange={(event, date) => {
-            setShowPicker(false);
-            if (date) {
-              onDateChange(date);
-            }
-          }}
+          onChange={handleChange}
           is24Hour={true}
         />
       )}
@@ -55,7 +64,12 @@ export const DatePickerComponent = ({ onDateChange }) => {
     </>
   );
 };
-export const MinutesInputComponent = ({ onMinutesChange, workDuration }) => {
+export const MinutesInputComponent = ({
+  onMinutesChange,
+  workDuration = "",
+  style,
+  placeholder,
+}) => {
   const { setMinutes } = useGlobalState();
   const [localMinutes, setLocalMinutes] = useState(String(workDuration));
   useEffect(() => {
@@ -64,38 +78,43 @@ export const MinutesInputComponent = ({ onMinutesChange, workDuration }) => {
   const handleMinutesChange = (text) => {
     const normalizedText = convertInput(text);
     setLocalMinutes(normalizedText);
-    onMinutesChange(normalizedText);
+    const value = normalizedText === "" ? 0 : parseInt(normalizedText, 10);
+    onMinutesChange(value);
   };
   return (
     <TextInput
-      style={input.inputCoAir}
+      style={[input.inputCoAir, style]}
       value={localMinutes}
       keyboardType="numeric"
       onChangeText={handleMinutesChange}
+      placeholder={placeholder}
     />
   );
 };
-
-export const DepthInputComponent = ({ onDepthChange, depth }) => {
+export const DepthInputComponent = ({
+  onDepthChange,
+  depth = "",
+  style,
+  placeholder,
+}) => {
   const { setDepth } = useGlobalState();
   const [localDepth, setLocalDepth] = useState(depth);
-
   useEffect(() => {
     setLocalDepth(depth);
   }, [depth]);
-
   const handleDepthChange = (text) => {
     const normalizedText = convertInput(text);
-    setLocalDepth(normalizedText); // Mettez à jour l'état local
-    onDepthChange(normalizedText); // Notify the parent component
+    setLocalDepth(normalizedText);
+    const value = normalizedText === "" ? 0 : parseInt(normalizedText, 10);
+    onDepthChange(value);
   };
-
   return (
     <TextInput
-      style={input.inputCoAir}
-      value={String(localDepth)} // Assurez-vous que c'est une chaîne
+      style={[input.inputCoAir, style]}
+      value={String(localDepth)}
       keyboardType="numeric"
       onChangeText={handleDepthChange}
+      placeholder={placeholder}
     />
   );
 };

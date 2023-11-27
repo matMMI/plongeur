@@ -20,6 +20,15 @@ const results = {
     borderRadius: 7,
     overflow: "hidden",
   },
+  tagContainerAlert: {
+    borderWidth: 2,
+    borderColor: color.redCol2,
+    backgroundColor: color.redCol1,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 7,
+    overflow: "hidden",
+  },
   tagText: {
     textAlign: "center",
     color: "#fff",

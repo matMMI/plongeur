@@ -431,7 +431,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 60,
+    DT: 65,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -441,7 +441,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 60,
+    DT: 80,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -451,7 +451,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 60,
+    DT: 90,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -461,7 +461,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 60,
+    DT: 105,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -481,7 +481,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 120,
+    DT: 135,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -491,7 +491,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 120,
+    DT: 140,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -501,7 +501,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 120,
+    DT: 150,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -511,7 +511,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 120,
+    DT: 160,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -521,7 +521,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 120,
+    DT: 170,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -541,7 +541,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 180,
+    DT: 190,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -551,7 +551,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 180,
+    DT: 200,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -561,7 +561,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 180,
+    DT: 210,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -571,7 +571,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 180,
+    DT: 220,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -581,7 +581,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 180,
+    DT: 230,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -601,7 +601,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 240,
+    DT: 250,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -611,7 +611,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 240,
+    DT: 255,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -621,7 +621,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 240,
+    DT: 270,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -631,7 +631,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 240,
+    DT: 285,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -651,7 +651,7 @@ export const pdt = [
   },
   {
     Profondeur: 12,
-    DT: 300,
+    DT: 315,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -781,7 +781,7 @@ export const pdt = [
   },
   {
     Profondeur: 15,
-    DT: 60,
+    DT: 65,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -791,7 +791,7 @@ export const pdt = [
   },
   {
     Profondeur: 15,
-    DT: 60,
+    DT: 70,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -801,7 +801,7 @@ export const pdt = [
   },
   {
     Profondeur: 15,
-    DT: 60,
+    DT: 75,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -811,7 +811,7 @@ export const pdt = [
   },
   {
     Profondeur: 15,
-    DT: 60,
+    DT: 80,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -821,7 +821,7 @@ export const pdt = [
   },
   {
     Profondeur: 15,
-    DT: 60,
+    DT: 85,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -831,7 +831,7 @@ export const pdt = [
   },
   {
     Profondeur: 15,
-    DT: 60,
+    DT: 90,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -841,7 +841,7 @@ export const pdt = [
   },
   {
     Profondeur: 15,
-    DT: 60,
+    DT: 95,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -851,7 +851,7 @@ export const pdt = [
   },
   {
     Profondeur: 15,
-    DT: 60,
+    DT: 100,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -861,7 +861,7 @@ export const pdt = [
   },
   {
     Profondeur: 15,
-    DT: 60,
+    DT: 105,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -871,7 +871,7 @@ export const pdt = [
   },
   {
     Profondeur: 15,
-    DT: 60,
+    DT: 110,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -881,7 +881,7 @@ export const pdt = [
   },
   {
     Profondeur: 15,
-    DT: 60,
+    DT: 115,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -901,7 +901,7 @@ export const pdt = [
   },
   {
     Profondeur: 15,
-    DT: 120,
+    DT: 130,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1031,7 +1031,7 @@ export const pdt = [
   },
   {
     Profondeur: 18,
-    DT: 60,
+    DT: 65,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1041,7 +1041,7 @@ export const pdt = [
   },
   {
     Profondeur: 18,
-    DT: 60,
+    DT: 70,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1051,7 +1051,7 @@ export const pdt = [
   },
   {
     Profondeur: 18,
-    DT: 60,
+    DT: 75,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1061,7 +1061,7 @@ export const pdt = [
   },
   {
     Profondeur: 18,
-    DT: 60,
+    DT: 80,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1071,7 +1071,7 @@ export const pdt = [
   },
   {
     Profondeur: 18,
-    DT: 60,
+    DT: 85,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1081,7 +1081,7 @@ export const pdt = [
   },
   {
     Profondeur: 18,
-    DT: 60,
+    DT: 90,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1091,7 +1091,7 @@ export const pdt = [
   },
   {
     Profondeur: 18,
-    DT: 60,
+    DT: 95,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1101,7 +1101,7 @@ export const pdt = [
   },
   {
     Profondeur: 18,
-    DT: 60,
+    DT: 100,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1111,7 +1111,7 @@ export const pdt = [
   },
   {
     Profondeur: 18,
-    DT: 60,
+    DT: 105,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1121,7 +1121,7 @@ export const pdt = [
   },
   {
     Profondeur: 18,
-    DT: 60,
+    DT: 110,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1131,7 +1131,7 @@ export const pdt = [
   },
   {
     Profondeur: 18,
-    DT: 60,
+    DT: 115,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1151,7 +1151,7 @@ export const pdt = [
   },
   {
     Profondeur: 18,
-    DT: 120,
+    DT: 130,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1281,7 +1281,7 @@ export const pdt = [
   },
   {
     Profondeur: 20,
-    DT: 60,
+    DT: 65,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1291,7 +1291,7 @@ export const pdt = [
   },
   {
     Profondeur: 20,
-    DT: 60,
+    DT: 70,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1301,7 +1301,7 @@ export const pdt = [
   },
   {
     Profondeur: 20,
-    DT: 60,
+    DT: 75,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1311,7 +1311,7 @@ export const pdt = [
   },
   {
     Profondeur: 20,
-    DT: 60,
+    DT: 80,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1321,7 +1321,7 @@ export const pdt = [
   },
   {
     Profondeur: 20,
-    DT: 60,
+    DT: 85,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1331,7 +1331,7 @@ export const pdt = [
   },
   {
     Profondeur: 20,
-    DT: 60,
+    DT: 90,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1341,7 +1341,7 @@ export const pdt = [
   },
   {
     Profondeur: 20,
-    DT: 60,
+    DT: 95,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1471,7 +1471,7 @@ export const pdt = [
   },
   {
     Profondeur: 22,
-    DT: 60,
+    DT: 65,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1481,7 +1481,7 @@ export const pdt = [
   },
   {
     Profondeur: 22,
-    DT: 60,
+    DT: 70,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1491,7 +1491,7 @@ export const pdt = [
   },
   {
     Profondeur: 22,
-    DT: 60,
+    DT: 75,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1501,7 +1501,7 @@ export const pdt = [
   },
   {
     Profondeur: 22,
-    DT: 60,
+    DT: 80,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1511,7 +1511,7 @@ export const pdt = [
   },
   {
     Profondeur: 22,
-    DT: 60,
+    DT: 85,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1521,7 +1521,7 @@ export const pdt = [
   },
   {
     Profondeur: 22,
-    DT: 60,
+    DT: 90,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1531,7 +1531,7 @@ export const pdt = [
   },
   {
     Profondeur: 22,
-    DT: 60,
+    DT: 95,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1661,7 +1661,7 @@ export const pdt = [
   },
   {
     Profondeur: 25,
-    DT: 60,
+    DT: 65,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1671,7 +1671,7 @@ export const pdt = [
   },
   {
     Profondeur: 25,
-    DT: 60,
+    DT: 70,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1681,7 +1681,7 @@ export const pdt = [
   },
   {
     Profondeur: 25,
-    DT: 60,
+    DT: 75,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1691,7 +1691,7 @@ export const pdt = [
   },
   {
     Profondeur: 25,
-    DT: 60,
+    DT: 80,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1701,7 +1701,7 @@ export const pdt = [
   },
   {
     Profondeur: 25,
-    DT: 60,
+    DT: 85,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1711,7 +1711,7 @@ export const pdt = [
   },
   {
     Profondeur: 25,
-    DT: 60,
+    DT: 90,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1721,7 +1721,7 @@ export const pdt = [
   },
   {
     Profondeur: 25,
-    DT: 60,
+    DT: 95,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1851,7 +1851,7 @@ export const pdt = [
   },
   {
     Profondeur: 28,
-    DT: 60,
+    DT: 65,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1861,7 +1861,7 @@ export const pdt = [
   },
   {
     Profondeur: 28,
-    DT: 60,
+    DT: 70,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1871,7 +1871,7 @@ export const pdt = [
   },
   {
     Profondeur: 28,
-    DT: 60,
+    DT: 75,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1881,7 +1881,7 @@ export const pdt = [
   },
   {
     Profondeur: 28,
-    DT: 60,
+    DT: 80,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1891,7 +1891,7 @@ export const pdt = [
   },
   {
     Profondeur: 28,
-    DT: 60,
+    DT: 85,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1901,7 +1901,7 @@ export const pdt = [
   },
   {
     Profondeur: 28,
-    DT: 60,
+    DT: 90,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -1911,7 +1911,7 @@ export const pdt = [
   },
   {
     Profondeur: 28,
-    DT: 60,
+    DT: 95,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -2041,7 +2041,7 @@ export const pdt = [
   },
   {
     Profondeur: 30,
-    DT: 60,
+    DT: 65,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -2051,7 +2051,7 @@ export const pdt = [
   },
   {
     Profondeur: 30,
-    DT: 60,
+    DT: 70,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -2061,7 +2061,7 @@ export const pdt = [
   },
   {
     Profondeur: 30,
-    DT: 60,
+    DT: 75,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -2191,7 +2191,7 @@ export const pdt = [
   },
   {
     Profondeur: 32,
-    DT: 60,
+    DT: 65,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -2201,7 +2201,7 @@ export const pdt = [
   },
   {
     Profondeur: 32,
-    DT: 60,
+    DT: 70,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -2211,7 +2211,7 @@ export const pdt = [
   },
   {
     Profondeur: 32,
-    DT: 60,
+    DT: 75,
     "15m": "",
     "12m": "",
     "9m": "",
@@ -2351,7 +2351,7 @@ export const pdt = [
   },
   {
     Profondeur: 35,
-    DT: 60,
+    DT: 65,
     "15m": "",
     "12m": "",
     "9m": 2,
@@ -2481,7 +2481,7 @@ export const pdt = [
   },
   {
     Profondeur: 38,
-    DT: 60,
+    DT: 65,
     "15m": "",
     "12m": "",
     "9m": 9,
@@ -2611,7 +2611,7 @@ export const pdt = [
   },
   {
     Profondeur: 40,
-    DT: 60,
+    DT: 65,
     "15m": "",
     "12m": "",
     "9m": 13,

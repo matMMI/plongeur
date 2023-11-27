@@ -5,7 +5,6 @@ const height90vh = windowHeight * 0.8;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
     flex: 1,
   },
   scrollContainer: {
@@ -16,7 +15,7 @@ const styles = StyleSheet.create({
   },
   bkg: {
     backgroundColor: "#E8F1FF",
-    borderRadius: 15,
+    borderRadius: 7,
     padding: 10,
   },
   space: { textAlign: "center", marginBottom: 15 },

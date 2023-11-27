@@ -11,11 +11,10 @@ const darkTheme = {
     backgroundColor: "#000",
   },
   coAirContainer: {
-    backgroundColor: colors.blue3,
+    marginBottom: 15,
     alignItems: "center",
     borderRadius: 10,
     borderWidth: 3,
-    borderColor: colors.blue2,
   },
   headerText: {
     paddingVertical: 10,
@@ -23,9 +22,9 @@ const darkTheme = {
     color: "white",
     fontSize: 24,
     fontWeight: "bold",
-    backgroundColor: colors.blue1,
     width: "100%",
     textAlign: "center",
+    textTransform: "uppercase",
     marginBottom: 15,
   },
   buttonContainer: {
@@ -37,7 +36,6 @@ const darkTheme = {
     justifyContent: "space-between",
   },
   button: {
-    backgroundColor: colors.blue2,
     paddingHorizontal: 10,
     paddingVertical: 15,
     width: "48%",
