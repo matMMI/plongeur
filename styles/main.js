@@ -33,8 +33,9 @@ const main = {
 
   inputLabel: {
     color: "#FFFFFF",
-    fontSize: 18,
+    fontSize: 17,
     textAlign: "center",
+    fontWeight: "300",
     marginBottom: 5,
     textTransform: "uppercase",
   },

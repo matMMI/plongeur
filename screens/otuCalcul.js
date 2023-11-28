@@ -9,28 +9,22 @@ import colors from "../styles/colors";
 import title from "../styles/titles";
 import result from "../styles/results";
 import main from "../styles/main";
-
 const OtuCalculator = () => {
   const [depth, setDepth] = useState("");
   const [time, setTime] = useState("");
   const [previousDoses, setPreviousDoses] = useState("");
-
   const handleDepthChange = (newDepth) => {
     setDepth(parseInt(newDepth, 10));
   };
-
   const handleTimeChange = (newTime) => {
     setTime(parseInt(newTime, 10));
   };
-
   const handlePreviousDosesChange = (newDoses) => {
     setPreviousDoses(parseInt(newDoses, 10));
   };
-
   const calculateOTU = () => {
     return Math.ceil(time * Math.pow((depth / 10 + 1 - 0.5) / 0.5, 0.83));
   };
-
   const totalOTU = calculateOTU() + previousDoses;
   const getLimitExceededMessage = () => {
     if (totalOTU > 2300) {
@@ -44,7 +38,7 @@ const OtuCalculator = () => {
     } else if (totalOTU > 850) {
       return "Limite 24h dépassée";
     }
-    return ""; // Aucune limite dépassée
+    return "";
   };
   const limitMessage = getLimitExceededMessage();
   const plchProf = "Insérer une profondeur";
@@ -60,7 +54,7 @@ const OtuCalculator = () => {
       >
         <View style={[main.header, { backgroundColor: colors.greyCol2 }]}>
           <Text style={[title.headerText, { color: colors.col1 }]}>
-            PLONGÉ SIMPLE
+            CF OXY - OTU
           </Text>
         </View>
         <View style={[main.inputContainer, { paddingTop: 30 }]}>
@@ -88,7 +82,7 @@ const OtuCalculator = () => {
         <View style={main.inputContainerResult}>
           <View style={[result.resultParent]}>
             <Text style={[result.resultTitle, { color: colors.green }]}>
-              OTU
+              OTU :
             </Text>
             <View style={result.tagContainer}>
               <Text style={result.tagText}>{calculateOTU()}</Text>
@@ -111,10 +105,10 @@ const OtuCalculator = () => {
         <View style={main.inputContainerResult}>
           <View style={[result.resultParent]}>
             <Text style={[result.resultTitle, { color: colors.green }]}>
-              TOTAL
+              TOTAL :
             </Text>
             <View style={result.tagContainer}>
-              <Text style={result.tagText}>{Math.ceil(totalOTU)}</Text>
+              <Text style={result.tagText}>{Math.ceil(totalOTU)} OTU</Text>
             </View>
           </View>
         </View>
@@ -129,5 +123,4 @@ const OtuCalculator = () => {
     </KeyboardAwareScrollView>
   );
 };
-
 export default OtuCalculator;

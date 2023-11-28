@@ -11,10 +11,10 @@ import styles from "./styles/styleApp";
 import AirPlongeSimple from "./screens/coAir/airPlongeSimple";
 import AirPlongeIterative from "./screens/coAir/airPlongeIterative";
 import AirRemonteRapide from "./screens/coAir/airRemonteRapide";
-import AirVolConsommation from "./screens/coAir/airVolConsommation";
-import AirGaz from "./screens/coAir/airGaz";
 import Apropos from "./screens/Apropos";
-import Otu from "./screens/otuCalculator";
+import Otu from "./screens/otuCalcul";
+import Vol from "./screens/volCalcul";
+import Ppo from "./screens/ppoCalcul";
 // -----------
 
 const Stack = createNativeStackNavigator();
@@ -60,8 +60,85 @@ function Accueil({ navigation }) {
           </Pressable>
         </View>
       </View>
-      {/* -------------------------- CO NITROX -------------------------- */}
-      {/* -------------------------- SCR CRABE -------------------------- */}
+      {/* -------------------------- CRABE -------------------------- */}
+      <View
+        style={[
+          styles.coAirContainer,
+          { backgroundColor: colors.crabeCol1, borderColor: colors.crabeCol2 },
+        ]}
+      >
+        <Text
+          style={[styles.headerText, { backgroundColor: colors.crabeCol3 }]}
+        >
+          SCR - CRABE
+        </Text>
+        <View style={styles.buttonContainer}>
+          <Pressable
+            style={[
+              styles.button,
+              {
+                backgroundColor: colors.crabeCol2,
+              },
+            ]}
+            onPress={() => navigation.navigate("AirPlongeSimple")}
+          >
+            <Text style={styles.buttonText}>PLONGÉ SIMPLE</Text>
+          </Pressable>
+          <Pressable
+            style={[styles.button, { backgroundColor: colors.crabeCol2 }]}
+            onPress={() => navigation.navigate("AirRemonteRapide")}
+          >
+            <Text style={styles.buttonTextAlert}>REMONTÉ RAPIDE</Text>
+          </Pressable>
+          <Pressable
+            style={[
+              styles.button,
+              { backgroundColor: colors.crabeCol2, width: "100%" },
+            ]}
+            onPress={() => navigation.navigate("AirPlongeIterative")}
+          >
+            <Text style={styles.buttonText}>PLONGÉ ITÉRATIVE</Text>
+          </Pressable>
+        </View>
+      </View>
+      {/* -------------------------- PpO² - PpN² - PEA -------------------------- */}
+      <View
+        style={[
+          styles.coAirContainer,
+          { backgroundColor: colors.ppoCol1, borderColor: colors.ppoCol2 },
+        ]}
+      >
+        <Text style={[styles.headerText, { backgroundColor: colors.ppoCol3 }]}>
+          PpO² - PpN² - PEA
+        </Text>
+        <View style={{ width: "100%", paddingHorizontal: 10 }}>
+          <Pressable
+            style={[styles.buttonLarge, { backgroundColor: colors.ppoCol2 }]}
+            onPress={() => navigation.navigate("PpoCalcul")}
+          >
+            <Text style={styles.buttonText}>accéder au calculateur</Text>
+          </Pressable>
+        </View>
+      </View>
+      {/* -------------------------- VOLUME / CONSOMMATION -------------------------- */}
+      <View
+        style={[
+          styles.coAirContainer,
+          { backgroundColor: colors.volCol1, borderColor: colors.volCol2 },
+        ]}
+      >
+        <Text style={[styles.headerText, { backgroundColor: colors.volCol3 }]}>
+          volume / consommation
+        </Text>
+        <View style={{ width: "100%", paddingHorizontal: 10 }}>
+          <Pressable
+            style={[styles.buttonLarge, { backgroundColor: colors.volCol2 }]}
+            onPress={() => navigation.navigate("VolCalculator")}
+          >
+            <Text style={styles.buttonText}>accéder au calculateur</Text>
+          </Pressable>
+        </View>
+      </View>
       {/* -------------------------- CF OXY - OTU -------------------------- */}
       <View
         style={[
@@ -118,14 +195,9 @@ const App = () => {
               component={AirPlongeIterative}
             />
             <Stack.Screen
-              options={{ title: "PpO² - PpN² - PEA" }}
-              name="AirGaz"
-              component={AirGaz}
-            />
-            <Stack.Screen
               options={{ title: "VOLUME / CONSOMMATION" }}
-              name="AirVolConsommation"
-              component={AirVolConsommation}
+              name="VolCalculator"
+              component={Vol}
             />
             <Stack.Screen
               options={{ title: "PLONGÉ SIMPLE" }}
@@ -136,6 +208,11 @@ const App = () => {
               options={{ title: "CF OXY - OTU" }}
               name="OtuCalculator"
               component={Otu}
+            />
+            <Stack.Screen
+              options={{ title: "PpO² - PpN² - PEA" }}
+              name="PpoCalcul"
+              component={Ppo}
             />
           </Stack.Navigator>
         </NavigationContainer>

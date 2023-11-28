@@ -26,12 +26,11 @@ const convertInput = (value) => {
     .replace(";", ".")
     .replace("-", ".")
     .replace(" ", ".")
-    .replace(/^[0]+([1-9])/, "$1") // Supprime les zéros en tête sauf pour les décimaux
+    .replace(/^[0]+([1-9])/, "$1")
     .replace(/^-/, "");
   if (/^\./.test(normalized)) {
-    normalized = "0" + normalized; // Ajoute un '0' devant un point pour former '0.x'
+    normalized = "0" + normalized;
   }
-
   return normalized;
 };
 //--------------------------//
@@ -107,6 +106,35 @@ export const DepthInputComponent = ({
     setLocalDepth(normalizedText);
     const value = normalizedText === "" ? 0 : parseInt(normalizedText, 10);
     onDepthChange(value);
+  };
+  return (
+    <TextInput
+      style={[input.inputCoAir, style]}
+      value={String(localDepth)}
+      keyboardType="numeric"
+      onChangeText={handleDepthChange}
+      placeholder={placeholder}
+    />
+  );
+};
+
+// OXY
+export const OxyInputComponent = ({
+  onOxyChange,
+  oxy = "",
+  style,
+  placeholder,
+}) => {
+  const { setDepth } = useGlobalState();
+  const [localDepth, setLocalDepth] = useState(oxy);
+  useEffect(() => {
+    setLocalDepth(oxy);
+  }, [oxy]);
+  const handleDepthChange = (text) => {
+    const normalizedText = convertInput(text);
+    setLocalDepth(normalizedText);
+    const value = normalizedText === "" ? 0 : parseInt(normalizedText, 10);
+    onOxyChange(value);
   };
   return (
     <TextInput

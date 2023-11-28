@@ -8,7 +8,6 @@ const results = {
   },
   resultTitle: {
     color: "#fff",
-    textTransform: "uppercase",
     fontSize: 15,
   },
   tagContainer: {
@@ -29,10 +28,21 @@ const results = {
     borderRadius: 7,
     overflow: "hidden",
   },
+  tagContainerWarning: {
+    borderWidth: 2,
+    borderColor: color.warningCol2,
+    backgroundColor: color.warningCol1,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 7,
+    overflow: "hidden",
+  },
+
   tagText: {
     textAlign: "center",
     color: "#fff",
     fontSize: 17,
+    fontWeight: "300",
     letterSpacing: 1,
   },
 };

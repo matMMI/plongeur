@@ -21,7 +21,7 @@ const darkTheme = {
     marginTop: 20,
     color: "white",
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: "500",
     width: "100%",
     textAlign: "center",
     textTransform: "uppercase",
@@ -44,9 +44,10 @@ const darkTheme = {
   },
   buttonText: {
     color: "#fff",
-    fontSize: 14,
+    fontSize: 16,
     textAlign: "center",
-    fontWeight: "bold",
+    letterSpacing: 0.5,
+    textTransform: "uppercase",
   },
   specialButton: {
     backgroundColor: "#FF5F2C",

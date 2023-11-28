@@ -5,9 +5,14 @@ const title = {
     marginBottom: 0,
   },
   headerText: {
-    color: "#FFFFFF",
+    fontWeight: "600",
     fontSize: 20,
-    letterSpacing: 0.7,
+    letterSpacing: 0.6,
+  },
+  headerSubText: {
+    paddingTop: 10,
+    fontSize: 13,
+    textTransform: "uppercase",
   },
 };
 
