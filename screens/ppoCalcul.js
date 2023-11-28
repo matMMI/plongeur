@@ -38,7 +38,7 @@ const PpoCalcul = () => {
           { backgroundColor: colors.greyCol1, borderColor: colors.greyCol2 },
         ]}
       >
-        <View style={[main.header, { backgroundColor: colors.greyCol2 }]}>
+        <View style={[main.header, { backgroundColor: colors.greyCol3 }]}>
           <Text style={[title.headerText, { color: colors.col1 }]}>
             PpO² - PpN² - PEA
           </Text>
@@ -77,7 +77,6 @@ const PpoCalcul = () => {
         </View>
         {ppo2 > 1.6 && (
           <View style={main.inputContainerResult}>
-            {/* Bloc "PpO² Haute" */}
             <View style={result.tagContainerWarning}>
               <Text style={result.tagText}>PpO² Haute</Text>
             </View>

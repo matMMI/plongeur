@@ -33,7 +33,8 @@ const colors = {
   volCol3: "#47B0B0",
   //Gris nuances,
   greyCol1: "#181818",
-  greyCol2: "#999999",
+  greyCol2: "#717171",
+  greyCol3: "#C4C4C4",
   // ALERT RED
   redCol1: "#270610",
   redCol2: "#CF3C3C",

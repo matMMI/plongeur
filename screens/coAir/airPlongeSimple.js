@@ -10,6 +10,7 @@ import {
 import title from "../../styles/titles";
 import result from "../../styles/results";
 import main from "../../styles/main";
+import colors from "../../styles/colors";
 const AirPlongeSimple = () => {
   const [workDuration, setWorkDuration] = useState(0);
   const [depth, setDepth] = useState(0);
@@ -97,6 +98,7 @@ const AirPlongeSimple = () => {
             <MinutesInputComponent
               onMinutesChange={handleDurationChange}
               workDuration={workDuration}
+              style={{ borderColor: colors.greyCol2 }}
             />
           </View>
           <View style={title.subTitle}>
@@ -106,6 +108,7 @@ const AirPlongeSimple = () => {
           <DepthInputComponent
             onDepthChange={handleDepthChange}
             depth={depth}
+            style={{ borderColor: colors.greyCol2 }}
           />
         </View>
         <View style={main.header}>

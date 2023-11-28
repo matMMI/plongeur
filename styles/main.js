@@ -10,12 +10,12 @@ const main = {
     overflow: "hidden",
     borderRadius: 7,
     borderWidth: 3,
-    borderColor: color.blue2,
-    backgroundColor: color.blue3,
+    borderColor: color.greyCol2,
+    backgroundColor: color.greyCol1,
   },
 
   header: {
-    backgroundColor: color.blue1, // Slightly lighter dark background for header
+    backgroundColor: color.greyCol3, // Slightly lighter dark background for header
     padding: 15,
     alignItems: "center",
   },
