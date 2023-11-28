@@ -44,10 +44,11 @@ const darkTheme = {
   },
   buttonText: {
     color: "#fff",
-    fontSize: 16,
     textAlign: "center",
     letterSpacing: 0.5,
     textTransform: "uppercase",
+    flexWrap: "nowrap",
+    flexShrink: 1,
   },
   specialButton: {
     backgroundColor: "#FF5F2C",
@@ -55,7 +56,7 @@ const darkTheme = {
   buttonTextAlert: {
     color: "#fff",
     textAlign: "center",
-    fontWeight: "bold",
+    fontWeight: "300",
   },
   buttonLarge: {
     backgroundColor: "white",

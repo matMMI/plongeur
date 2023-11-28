@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { Store } from "./redux/store";
 import { NavigationContainer, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { GlobalStateProvider } from "./screens/coAir/components/ReusableComponents";
+import { GlobalStateProvider } from "./screens/components/ReusableComponents";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import colors from "./styles/colors";
 import styles from "./styles/styleApp";
@@ -15,10 +15,27 @@ import Apropos from "./screens/Apropos";
 import Otu from "./screens/otuCalcul";
 import Vol from "./screens/volCalcul";
 import Ppo from "./screens/ppoCalcul";
+import CrabePpo from "./screens/crabe/ppoCalcul";
+
 // -----------
 
 const Stack = createNativeStackNavigator();
 function Accueil({ navigation }) {
+  const ButtonText = ({ text, onPress, style }) => (
+    <Pressable style={[styles.button, style]} onPress={onPress}>
+      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.buttonText}>
+        {text}
+      </Text>
+    </Pressable>
+  );
+
+  const ButtonText100 = ({ text, onPress, style }) => (
+    <Pressable style={[styles.button, style]} onPress={onPress}>
+      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.buttonText}>
+        {text}
+      </Text>
+    </Pressable>
+  );
   return (
     <ScrollView style={styles.container}>
       {/* -------------------------- CO AIR -------------------------- */}
@@ -32,32 +49,21 @@ function Accueil({ navigation }) {
           CO - AIR
         </Text>
         <View style={styles.buttonContainer}>
-          <Pressable
-            style={[
-              styles.button,
-              {
-                backgroundColor: colors.blue2,
-              },
-            ]}
+          <ButtonText
+            style={{ backgroundColor: colors.blue2 }}
+            text="PLONGÉ SIMPLE"
             onPress={() => navigation.navigate("AirPlongeSimple")}
-          >
-            <Text style={styles.buttonText}>PLONGÉ SIMPLE</Text>
-          </Pressable>
-          <Pressable
-            style={[styles.button, { backgroundColor: colors.blue2 }]}
+          />
+          <ButtonText
+            style={{ backgroundColor: colors.blue2 }}
+            text="REMONTÉ RAPIDE"
             onPress={() => navigation.navigate("AirRemonteRapide")}
-          >
-            <Text style={styles.buttonTextAlert}>REMONTÉ RAPIDE</Text>
-          </Pressable>
-          <Pressable
-            style={[
-              styles.button,
-              { backgroundColor: colors.blue2, width: "100%" },
-            ]}
+          />
+          <ButtonText100
+            style={{ backgroundColor: colors.blue2, width: "100%" }}
+            text="PLONGÉ ITÉRATIVE"
             onPress={() => navigation.navigate("AirPlongeIterative")}
-          >
-            <Text style={styles.buttonText}>PLONGÉ ITÉRATIVE</Text>
-          </Pressable>
+          />
         </View>
       </View>
       {/* -------------------------- CRABE -------------------------- */}
@@ -73,32 +79,27 @@ function Accueil({ navigation }) {
           SCR - CRABE
         </Text>
         <View style={styles.buttonContainer}>
-          <Pressable
-            style={[
-              styles.button,
-              {
-                backgroundColor: colors.crabeCol2,
-              },
-            ]}
+          <ButtonText
+            style={{ backgroundColor: colors.crabeCol2 }}
+            text="PLONGÉ SIMPLE"
             onPress={() => navigation.navigate("AirPlongeSimple")}
-          >
-            <Text style={styles.buttonText}>PLONGÉ SIMPLE</Text>
-          </Pressable>
-          <Pressable
-            style={[styles.button, { backgroundColor: colors.crabeCol2 }]}
+          />
+
+          <ButtonText
+            style={{ backgroundColor: colors.crabeCol2 }}
+            text="REMONTÉ RAPIDE"
             onPress={() => navigation.navigate("AirRemonteRapide")}
-          >
-            <Text style={styles.buttonTextAlert}>REMONTÉ RAPIDE</Text>
-          </Pressable>
-          <Pressable
-            style={[
-              styles.button,
-              { backgroundColor: colors.crabeCol2, width: "100%" },
-            ]}
-            onPress={() => navigation.navigate("AirPlongeIterative")}
-          >
-            <Text style={styles.buttonText}>PLONGÉ ITÉRATIVE</Text>
-          </Pressable>
+          />
+          <ButtonText
+            style={{ backgroundColor: colors.crabeCol2 }}
+            text="PLONGÉ itérative"
+            onPress={() => navigation.navigate("AirRemonteRapide")}
+          />
+          <ButtonText
+            style={{ backgroundColor: colors.crabeCol2 }}
+            text="PpO² - PpN² - PEA"
+            onPress={() => navigation.navigate("CrabePpoCalcul")}
+          />
         </View>
       </View>
       {/* -------------------------- PpO² - PpN² - PEA -------------------------- */}
@@ -112,12 +113,11 @@ function Accueil({ navigation }) {
           PpO² - PpN² - PEA
         </Text>
         <View style={{ width: "100%", paddingHorizontal: 10 }}>
-          <Pressable
-            style={[styles.buttonLarge, { backgroundColor: colors.ppoCol2 }]}
+          <ButtonText100
+            style={{ backgroundColor: colors.ppoCol2, width: "100%" }}
+            text="accéder au calculateur"
             onPress={() => navigation.navigate("PpoCalcul")}
-          >
-            <Text style={styles.buttonText}>accéder au calculateur</Text>
-          </Pressable>
+          />
         </View>
       </View>
       {/* -------------------------- VOLUME / CONSOMMATION -------------------------- */}
@@ -131,12 +131,11 @@ function Accueil({ navigation }) {
           volume / consommation
         </Text>
         <View style={{ width: "100%", paddingHorizontal: 10 }}>
-          <Pressable
-            style={[styles.buttonLarge, { backgroundColor: colors.volCol2 }]}
+          <ButtonText100
+            style={{ backgroundColor: colors.volCol2, width: "100%" }}
+            text="accéder au calculateur"
             onPress={() => navigation.navigate("VolCalculator")}
-          >
-            <Text style={styles.buttonText}>accéder au calculateur</Text>
-          </Pressable>
+          />
         </View>
       </View>
       {/* -------------------------- CF OXY - OTU -------------------------- */}
@@ -150,15 +149,13 @@ function Accueil({ navigation }) {
           cf oxy - otu
         </Text>
         <View style={{ width: "100%", paddingHorizontal: 10 }}>
-          <Pressable
-            style={[styles.buttonLarge, { backgroundColor: colors.otuCol2 }]}
+          <ButtonText100
+            style={{ backgroundColor: colors.otuCol2, width: "100%" }}
+            text="accéder au calculateur"
             onPress={() => navigation.navigate("OtuCalculator")}
-          >
-            <Text style={styles.buttonText}>accéder au calculateur</Text>
-          </Pressable>
+          />
         </View>
       </View>
-
       <Pressable
         style={{
           marginTop: 30,
@@ -213,6 +210,11 @@ const App = () => {
               options={{ title: "PpO² - PpN² - PEA" }}
               name="PpoCalcul"
               component={Ppo}
+            />
+            <Stack.Screen
+              options={{ title: "CRABE" }}
+              name="CrabePpoCalcul"
+              component={CrabePpo}
             />
           </Stack.Navigator>
         </NavigationContainer>

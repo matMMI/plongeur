@@ -6,7 +6,7 @@ import {
   DatePickerComponent,
   MinutesInputComponent,
   DepthInputComponent,
-} from "./components/ReusableComponents";
+} from "../components/ReusableComponents";
 import title from "../../styles/titles";
 import result from "../../styles/results";
 import main from "../../styles/main";

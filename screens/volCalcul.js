@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { View, Text } from "react-native";
-import { DepthInputComponent } from "./coAir/components/ReusableComponents";
+import { DepthInputComponent } from "./components/ReusableComponents";
 import colors from "../styles/colors";
 import title from "../styles/titles";
 import result from "../styles/results";

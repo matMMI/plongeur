@@ -4,7 +4,7 @@ import { View, Text } from "react-native";
 import {
   MinutesInputComponent,
   DepthInputComponent,
-} from "./coAir/components/ReusableComponents";
+} from "./components/ReusableComponents";
 import colors from "../styles/colors";
 import title from "../styles/titles";
 import result from "../styles/results";

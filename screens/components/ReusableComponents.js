@@ -2,8 +2,8 @@ import React, { useState, createContext, useContext, useEffect } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { TextInput, TouchableOpacity, Text } from "react-native";
 //------------ STYLE ------------//
-import input from "../../../styles/inputs";
-import button from "../../../styles/buttons";
+import input from "../../styles/inputs";
+import button from "../../styles/buttons";
 //-------------------------------//
 const GlobalStateContext = createContext();
 export const useGlobalState = () => useContext(GlobalStateContext);
@@ -142,6 +142,35 @@ export const OxyInputComponent = ({
       value={String(localDepth)}
       keyboardType="numeric"
       onChangeText={handleDepthChange}
+      placeholder={placeholder}
+    />
+  );
+};
+// Picker components
+export const PickerInputComponent = ({
+  style,
+  onValueChange,
+  value,
+  placeholder,
+}) => {
+  const [inputValue, setInputValue] = useState(value);
+
+  useEffect(() => {
+    setInputValue(value);
+  }, [value]);
+
+  const handleValueChange = (newDepth) => {
+    setInputValue(newDepth);
+    if (onValueChange) {
+      onValueChange(newDepth);
+    }
+  };
+
+  return (
+    <TextInput
+      style={[input.inputCoAir, style]}
+      onChangeText={handleValueChange}
+      value={inputValue}
       placeholder={placeholder}
     />
   );

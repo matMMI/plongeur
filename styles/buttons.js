@@ -3,8 +3,8 @@ import colors from "./colors";
 const button = {
   button: {
     backgroundColor: colors.blue2,
-    padding: 10,
-    borderRadius: 5,
+    padding: 15,
+    borderRadius: 7,
     alignItems: "center",
     justifyContent: "center",
   },
