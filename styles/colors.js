@@ -3,6 +3,7 @@ const colors = {
   // ROOT
   col1: "#000000",
   col2: "#ffffff",
+  // -----
   pink: "#0A0A0A",
   pinkDark: "#0A0A0A",
   yellow: "#DCA400",

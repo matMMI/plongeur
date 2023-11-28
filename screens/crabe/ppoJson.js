@@ -1,4 +1,4 @@
-const crabe60 = [
+export const crabe60 = [
   {
     pea: 12,
     prof: 1,
@@ -193,7 +193,7 @@ const crabe60 = [
   },
 ];
 
-const crabe50 = [
+export const crabe50 = [
   {
     pea: 22,
     prof: 1,
@@ -388,7 +388,7 @@ const crabe50 = [
   },
 ];
 
-const crabe40 = [
+export const crabe40 = [
   {
     pea: 25,
     prof: 30,
@@ -577,7 +577,7 @@ const crabe40 = [
   },
 ];
 
-const crabe30 = [
+export const crabe30 = [
   {
     pea: "",
     prof: 30,

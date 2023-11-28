@@ -1,33 +1,109 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { View, Text, Pressable } from "react-native";
-import styles from "../../styles/buttons";
+import { crabe30, crabe40, crabe50, crabe60 } from "./ppoJson";
 import RNPickerSelect from "react-native-picker-select";
 import input from "../../styles/inputs";
 
-import { OxyInputComponent } from "../components/ReusableComponents";
+import { DepthInputComponent } from "../components/ReusableComponents";
 import colors from "../../styles/colors";
 import title from "../../styles/titles";
 import result from "../../styles/results";
 import main from "../../styles/main";
 const CrabePpoCalcul = () => {
-  const plchOxy = "Teneur en oxygène";
   const plchProf = "Insérer une profondeur";
-  const [selectedGaz, setSelectedGaz] = useState("30");
-  const [showPicker, setShowPicker] = useState(false); // Ajout de l'état pour le Picker
-  const pickerRef = useRef();
-  const openPicker = () => {
-    // Vérifier si la méthode togglePicker existe et l'appeler, sinon utiliser focus()
-    if (pickerRef.current && pickerRef.current.togglePicker) {
-      pickerRef.current.togglePicker(true);
-    } else {
-      pickerRef.current.focus();
-    }
-  };
-  const handleDepthChange = (itemValue) => {
+  const [selectedGaz, setSelectedGaz] = useState("");
+  const [depth, setDepth] = useState("");
+  const [ppO2Min, setPpO2Min] = useState("0");
+  const [ppO2Max, setPpO2Max] = useState("0");
+  const [ppN2Max, setPpN2Max] = useState("0");
+
+  const handleGazChange = (itemValue) => {
     setSelectedGaz(itemValue);
-    setShowPicker(false); // Cache le Picker après la sélection
+    updatePpoValues();
   };
+
+  const handleDepthInput = (text) => {
+    setDepth(text);
+    updatePpoValues();
+  };
+
+  const calculatePpoMin = () => {
+    if (!depth) return null;
+    let crabeTable;
+    switch (selectedGaz) {
+      case "30":
+        crabeTable = crabe30;
+        break;
+      case "40":
+        crabeTable = crabe40;
+        break;
+      case "50":
+        crabeTable = crabe50;
+        break;
+      case "60":
+        crabeTable = crabe60;
+        break;
+      default:
+        return;
+    }
+    const depthEntry = crabeTable.find(
+      (entry) => entry.prof === parseInt(depth)
+    );
+    return depthEntry ? depthEntry.co35 : "Valeur non disponible";
+  };
+  const calculatePpoMax = () => {
+    if (!depth) return null;
+    let crabeTable;
+    switch (selectedGaz) {
+      case "30":
+        crabeTable = crabe30;
+        break;
+      case "40":
+        crabeTable = crabe40;
+        break;
+      case "50":
+        crabeTable = crabe50;
+        break;
+      case "60":
+        crabeTable = crabe60;
+        break;
+      default:
+        return;
+    }
+    const depthEntry = crabeTable.find(
+      (entry) => entry.prof === parseInt(depth)
+    );
+    return depthEntry ? depthEntry.co55 : "Valeur non disponible";
+  };
+  const calculatePpN2Max = () => {
+    if (!depth || !ppO2Max) return null;
+    const depthValue = parseFloat(depth);
+    const ppO2MaxValue = parseFloat(ppO2Max);
+    const ppN2MaxValue = depthValue / 10 + 1 - ppO2MaxValue;
+    return ppN2MaxValue.toFixed(2);
+  };
+
+  const updatePpoValues = () => {
+    const ppoMin = calculatePpoMin();
+    const ppoMax = calculatePpoMax();
+    const n2Max = calculatePpN2Max();
+    setPpO2Min(ppoMin);
+    setPpO2Max(ppoMax);
+    setPpN2Max(n2Max);
+  };
+
+  useEffect(() => {
+    if (selectedGaz && depth != null) {
+      const ppoMin = calculatePpoMin();
+      const ppoMax = calculatePpoMax();
+      const n2Max = calculatePpN2Max();
+      setPpO2Min(ppoMin);
+      setPpO2Max(ppoMax);
+      setPpN2Max(n2Max);
+    }
+  }, [selectedGaz, depth, ppO2Max]);
+
   return (
     <KeyboardAwareScrollView style={main.parentContainer}>
       <View
@@ -48,7 +124,7 @@ const CrabePpoCalcul = () => {
               <Text style={main.inputLabel}></Text>
             </View>
             <RNPickerSelect
-              onValueChange={handleDepthChange}
+              onValueChange={handleGazChange}
               items={[
                 { label: "30 %", value: "30" },
                 { label: "40 %", value: "40" },
@@ -68,9 +144,9 @@ const CrabePpoCalcul = () => {
               value={selectedGaz}
               useNativeAndroidPickerStyle={false}
               placeholder={{
-                label: "Choisir la profondeur",
+                label: "Gaz CRABE",
                 value: null,
-                color: "blue", // La couleur de votre texte "placeholder"
+                color: "grey",
               }}
             />
           </View>
@@ -78,53 +154,64 @@ const CrabePpoCalcul = () => {
             <Text style={main.inputLabel}>Profondeur</Text>
             <Text style={main.inputLabel}>mètres</Text>
           </View>
-          <OxyInputComponent
+          <DepthInputComponent
+            onDepthChange={handleDepthInput}
             style={{ borderColor: colors.greyCol2 }}
-            // onOxyChange={handleOxyChange}
-            placeholder={plchOxy}
+            placeholder={plchProf}
           />
         </View>
-        <View style={main.inputContainerResult}>
-          <View style={[result.resultParent]}>
-            <Text style={[result.resultTitle, { color: colors.green }]}>
-              PpO² min :
-            </Text>
-            <View style={result.tagContainer}>
-              <Text style={result.tagText}>12 bar</Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={main.inputContainerResult}>
-          <View style={result.tagContainerWarning}>
-            <Text style={result.tagText}>PpO² Haute</Text>
-          </View>
-        </View>
-
         <View style={main.inputContainerResult}>
           <View style={[result.resultParent]}>
             <Text style={[result.resultTitle, { color: colors.green }]}>
               PpO² max:
             </Text>
             <View style={result.tagContainer}>
-              <Text style={result.tagText}>12 bar</Text>
+              <Text style={result.tagText}>
+                {" "}
+                {ppO2Min !== null ? `${ppO2Min} bar` : "Valeur non disponible"}
+              </Text>
             </View>
           </View>
         </View>
-
+        {ppO2Max > 1.6 && (
+          <View style={main.inputContainerResult}>
+            <View style={result.tagContainerWarning}>
+              <Text style={result.tagText}>PpO² Haute</Text>
+            </View>
+          </View>
+        )}
         <View style={main.inputContainerResult}>
-          <View style={result.tagContainerWarning}>
-            <Text style={result.tagText}>Domaine narcotique</Text>
+          <View style={[result.resultParent]}>
+            <Text style={[result.resultTitle, { color: colors.green }]}>
+              PpO² min :
+            </Text>
+            <View style={result.tagContainer}>
+              <Text style={result.tagText}>
+                {ppO2Max !== null ? `${ppO2Max} bar` : "Valeur non disponible"}
+              </Text>
+            </View>
           </View>
         </View>
-
+        {ppN2Max > 3.5 && (
+          <View style={main.inputContainerResult}>
+            <View style={result.tagContainerWarning}>
+              <Text style={result.tagText}>Domaine narcotique</Text>
+            </View>
+          </View>
+        )}
         <View style={main.inputContainerResult}>
           <View style={[result.resultParent]}>
             <Text style={[result.resultTitle, { color: colors.green }]}>
               PpN² max :
             </Text>
             <View style={result.tagContainer}>
-              <Text style={result.tagText}>12 bar</Text>
+              <Text style={result.tagText}>
+                <Text style={result.tagText}>
+                  {ppN2Max !== null
+                    ? `${ppN2Max} bar`
+                    : "Valeur non disponible"}
+                </Text>
+              </Text>
             </View>
           </View>
         </View>

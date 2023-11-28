@@ -19,6 +19,7 @@ export const GlobalStateProvider = ({ children }) => {
     </GlobalStateContext.Provider>
   );
 };
+
 //------- TRAITEMENT -------//
 const convertInput = (value) => {
   let normalized = value
@@ -33,7 +34,8 @@ const convertInput = (value) => {
   }
   return normalized;
 };
-//--------------------------//
+
+// DateTimePicker components
 export const DatePickerComponent = ({ onDateChange }) => {
   const [showPicker, setShowPicker] = useState(false);
   const handlePress = () => {
@@ -63,6 +65,8 @@ export const DatePickerComponent = ({ onDateChange }) => {
     </>
   );
 };
+
+// Input TEMPS saisie
 export const MinutesInputComponent = ({
   onMinutesChange,
   workDuration = "",
@@ -86,33 +90,6 @@ export const MinutesInputComponent = ({
       value={localMinutes}
       keyboardType="numeric"
       onChangeText={handleMinutesChange}
-      placeholder={placeholder}
-    />
-  );
-};
-export const DepthInputComponent = ({
-  onDepthChange,
-  depth = "",
-  style,
-  placeholder,
-}) => {
-  const { setDepth } = useGlobalState();
-  const [localDepth, setLocalDepth] = useState(depth);
-  useEffect(() => {
-    setLocalDepth(depth);
-  }, [depth]);
-  const handleDepthChange = (text) => {
-    const normalizedText = convertInput(text);
-    setLocalDepth(normalizedText);
-    const value = normalizedText === "" ? 0 : parseInt(normalizedText, 10);
-    onDepthChange(value);
-  };
-  return (
-    <TextInput
-      style={[input.inputCoAir, style]}
-      value={String(localDepth)}
-      keyboardType="numeric"
-      onChangeText={handleDepthChange}
       placeholder={placeholder}
     />
   );
@@ -154,7 +131,6 @@ export const PickerInputComponent = ({
   placeholder,
 }) => {
   const [inputValue, setInputValue] = useState(value);
-
   useEffect(() => {
     setInputValue(value);
   }, [value]);
@@ -165,12 +141,40 @@ export const PickerInputComponent = ({
       onValueChange(newDepth);
     }
   };
-
   return (
     <TextInput
       style={[input.inputCoAir, style]}
       onChangeText={handleValueChange}
       value={inputValue}
+      placeholder={placeholder}
+    />
+  );
+};
+
+// Profondeur
+export const DepthInputComponent = ({
+  onDepthChange,
+  depth = "",
+  style,
+  placeholder,
+}) => {
+  const { setDepth } = useGlobalState();
+  const [localDepth, setLocalDepth] = useState(depth);
+  useEffect(() => {
+    setLocalDepth(depth);
+  }, [depth]);
+  const handleDepthChange = (text) => {
+    const normalizedText = convertInput(text);
+    setLocalDepth(normalizedText);
+    const value = normalizedText === "" ? 0 : parseInt(normalizedText, 10);
+    onDepthChange(value);
+  };
+  return (
+    <TextInput
+      style={[input.inputCoAir, style]}
+      value={String(localDepth)}
+      keyboardType="numeric"
+      onChangeText={handleDepthChange}
       placeholder={placeholder}
     />
   );
