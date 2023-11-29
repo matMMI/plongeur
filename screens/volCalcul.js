@@ -54,7 +54,7 @@ const VolCalculator = () => {
           { backgroundColor: colors.greyCol1, borderColor: colors.greyCol2 },
         ]}
       >
-        <View style={[main.header, { backgroundColor: colors.greyCol2 }]}>
+        <View style={[main.header, { backgroundColor: colors.greyCol3 }]}>
           <Text style={[title.headerText, { color: colors.col1 }]}>
             Volume / Consommation
           </Text>
