@@ -94,7 +94,6 @@ const PpoCalcul = () => {
         </View>
         {ppn2 > 3.5 && (
           <View style={main.inputContainerResult}>
-            {/* Bloc "Domaine narcotique" */}
             <View style={result.tagContainerWarning}>
               <Text style={result.tagText}>Domaine narcotique</Text>
             </View>

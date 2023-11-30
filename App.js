@@ -51,18 +51,18 @@ function Accueil({ navigation }) {
         <View style={styles.buttonContainer}>
           <ButtonText
             style={{ backgroundColor: colors.blue2 }}
-            text="PLONGÉ SIMPLE"
+            text="PLONGÉE SIMPLE"
             onPress={() => navigation.navigate("AirPlongeSimple")}
           />
           <ButtonText
             style={{ backgroundColor: colors.blue2 }}
-            text="REMONTÉ RAPIDE"
-            onPress={() => navigation.navigate("AirRemonteRapide")}
+            text="REMONTÉE RAPIDE"
+            // onPress={() => navigation.navigate("AirRemonteRapide")}
           />
           <ButtonText100
             style={{ backgroundColor: colors.blue2, width: "100%" }}
-            text="PLONGÉ ITÉRATIVE"
-            onPress={() => navigation.navigate("AirPlongeIterative")}
+            text="PLONGÉE ITÉRATIVE"
+            // onPress={() => navigation.navigate("AirPlongeIterative")}
           />
         </View>
       </View>
@@ -81,19 +81,19 @@ function Accueil({ navigation }) {
         <View style={styles.buttonContainer}>
           <ButtonText
             style={{ backgroundColor: colors.crabeCol2 }}
-            text="PLONGÉ SIMPLE"
-            onPress={() => navigation.navigate("AirPlongeSimple")}
+            text="PLONGÉE SIMPLE"
+            // onPress={() => navigation.navigate("AirPlongeSimple")}
           />
 
           <ButtonText
             style={{ backgroundColor: colors.crabeCol2 }}
-            text="REMONTÉ RAPIDE"
-            onPress={() => navigation.navigate("AirRemonteRapide")}
+            text="REMONTÉE RAPIDE"
+            // onPress={() => navigation.navigate("AirRemonteRapide")}
           />
           <ButtonText
             style={{ backgroundColor: colors.crabeCol2 }}
-            text="PLONGÉ itérative"
-            onPress={() => navigation.navigate("AirRemonteRapide")}
+            text="PLONGÉE itérative"
+            // onPress={() => navigation.navigate("AirRemonteRapide")}
           />
           <ButtonText
             style={{ backgroundColor: colors.crabeCol2 }}
@@ -176,18 +176,18 @@ const App = () => {
           <Stack.Navigator initialRouteName="Accueil">
             <Stack.Screen name="Accueil" component={Accueil} />
             <Stack.Screen
-              options={{ title: "PLONGÉ SIMPLE" }}
+              options={{ title: "PLONGÉE SIMPLE" }}
               name="AirPlongeSimple"
               component={AirPlongeSimple}
             />
 
             <Stack.Screen
-              options={{ title: "REMONTÉ RAPIDE" }}
+              options={{ title: "REMONTÉE RAPIDE" }}
               name="AirRemonteRapide"
               component={AirRemonteRapide}
             />
             <Stack.Screen
-              options={{ title: "PLONGÉ ITÉRATIVE" }}
+              options={{ title: "PLONGÉE ITÉRATIVE" }}
               name="AirPlongeIterative"
               component={AirPlongeIterative}
             />
@@ -197,7 +197,7 @@ const App = () => {
               component={Vol}
             />
             <Stack.Screen
-              options={{ title: "PLONGÉ SIMPLE" }}
+              options={{ title: "À PROPOS" }}
               name="À propos"
               component={Apropos}
             />

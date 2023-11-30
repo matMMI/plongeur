@@ -82,7 +82,7 @@ const AirPlongeSimple = () => {
     <KeyboardAwareScrollView style={main.parentContainer}>
       <View style={main.container}>
         <View style={main.header}>
-          <Text style={title.headerText}>PLONGÉ SIMPLE</Text>
+          <Text style={title.headerText}>PLONGÉE SIMPLE</Text>
         </View>
         <View style={[main.inputContainer, { paddingTop: 30 }]}>
           <View style={main.mb_30}>
@@ -114,20 +114,17 @@ const AirPlongeSimple = () => {
         <View style={main.header}>
           <Text style={title.headerText}>GPS</Text>
         </View>
-        <View style={main.inputContainer}>
-          <View style={[result.resultParent, main.my_15]}>
-            <Text style={result.resultTitle}>Groupe de plongé successif</Text>
-            <View style={result.tagContainer}>
-              <Text style={result.tagText}>{gps}</Text>
-            </View>
-          </View>
+        <View style={[main.inputContainer, { marginTop: 20 }]}>
           {/* Affichage des paliers si la valeur n'est pas vide */}
           {Object.keys(stages).map((key) => {
             const value = stages[key];
             return (
               value &&
               !isNaN(value) && (
-                <View key={key} style={[result.resultParent, main.mb_15]}>
+                <View
+                  key={key}
+                  style={[result.resultParent, { marginBottom: 15 }]}
+                >
                   <Text style={result.resultTitle}>{key}</Text>
                   <View style={result.tagContainer}>
                     <Text style={result.tagText}>{value}</Text>
@@ -136,6 +133,12 @@ const AirPlongeSimple = () => {
               )
             );
           })}
+          <View style={result.resultParent}>
+            <Text style={result.resultTitle}>Groupe de plongée successif</Text>
+            <View style={result.tagContainer}>
+              <Text style={result.tagText}>{gps}</Text>
+            </View>
+          </View>
         </View>
       </View>
     </KeyboardAwareScrollView>

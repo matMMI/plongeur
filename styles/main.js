@@ -40,6 +40,9 @@ const main = {
     textTransform: "uppercase",
   },
   // ESPACEMENT
+  mb_10: {
+    marginBottom: 10,
+  },
   mb_15: {
     marginBottom: 15,
   },
@@ -48,6 +51,9 @@ const main = {
   },
   mb_30: {
     marginBottom: 30,
+  },
+  my_10: {
+    marginVertical: 10,
   },
   my_15: {
     marginVertical: 15,

@@ -78,7 +78,7 @@ const CrabePpoCalcul = () => {
     return depthEntry ? depthEntry.co55 : null;
   };
   const calculatePEA = () => {
-    if (!depth || !selectedGaz) return "AUCUNE VALEUR";
+    if (!depth || !selectedGaz) return "N/A";
 
     let crabeTable;
     switch (selectedGaz) {
@@ -95,13 +95,11 @@ const CrabePpoCalcul = () => {
         crabeTable = crabe60;
         break;
       default:
-        return "AUCUNE VALEUR";
+        return "N/A";
     }
     const depthValue = parseInt(depth, 10);
     const depthEntry = crabeTable.find((entry) => entry.prof === depthValue);
-    return depthEntry && depthEntry.pea !== ""
-      ? `${depthEntry.pea} m`
-      : "AUCUNE VALEUR";
+    return depthEntry && depthEntry.pea !== "" ? `${depthEntry.pea} m` : "N/A";
   };
 
   const calculatePpN2Max = () => {
@@ -193,39 +191,34 @@ const CrabePpoCalcul = () => {
           />
         </View>
         <View style={main.inputContainerResult}>
+          <View style={title.subTitle}>
+            <Text style={main.inputLabel}>PpO² (Bar):</Text>
+          </View>
+          <View style={main.mb_10}></View>
           <View style={[result.resultParent]}>
-            <Text style={[result.resultTitle, { color: colors.green }]}>
-              PpO² max:
-            </Text>
             <View style={result.tagContainer}>
               <Text style={result.tagText}>
-                {ppO2Min !== null ? `${ppO2Min} bar` : "AUCUNE VALEUR"}
+                PpO² min : {ppO2Max !== null ? `${ppO2Max}` : "N/A"}
+              </Text>
+            </View>
+            <View style={result.tagContainer}>
+              <Text style={result.tagText}>
+                PpO² max: {ppO2Min !== null ? `${ppO2Min}` : "N/A"}
               </Text>
             </View>
           </View>
         </View>
         {ppO2Max > 1.6 && (
           <View style={main.inputContainerResult}>
-            <View style={result.tagContainerWarning}>
+            <View style={result.tagContainerAlert}>
               <Text style={result.tagText}>PpO² Haute</Text>
             </View>
           </View>
         )}
-        <View style={main.inputContainerResult}>
-          <View style={[result.resultParent]}>
-            <Text style={[result.resultTitle, { color: colors.green }]}>
-              PpO² min :
-            </Text>
-            <View style={result.tagContainer}>
-              <Text style={result.tagText}>
-                {ppO2Max !== null ? `${ppO2Max} bar` : "AUCUNE VALEUR"}
-              </Text>
-            </View>
-          </View>
-        </View>
+
         {ppN2Max > 3.5 && (
           <View style={main.inputContainerResult}>
-            <View style={result.tagContainerWarning}>
+            <View style={result.tagContainerAlert}>
               <Text style={result.tagText}>Domaine narcotique</Text>
             </View>
           </View>
@@ -238,7 +231,7 @@ const CrabePpoCalcul = () => {
             <View style={result.tagContainer}>
               <Text style={result.tagText}>
                 <Text style={result.tagText}>
-                  {ppN2Max !== null ? `${ppN2Max} bar` : "AUCUNE VALEUR"}
+                  {ppN2Max !== null ? `${ppN2Max} bar` : "N/A"}
                 </Text>
               </Text>
             </View>
@@ -250,9 +243,7 @@ const CrabePpoCalcul = () => {
               PEA :
             </Text>
             <View style={result.tagContainer}>
-              <Text style={result.tagText}>
-                {pea !== "AUCUNE VALEUR" ? pea : "AUCUNE VALEUR"}
-              </Text>
+              <Text style={result.tagText}>{pea !== "N/A" ? pea : "N/A"}</Text>
             </View>
           </View>
         </View>

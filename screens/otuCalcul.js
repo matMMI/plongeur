@@ -26,21 +26,26 @@ const OtuCalculator = () => {
     return Math.ceil(time * Math.pow((depth / 10 + 1 - 0.5) / 0.5, 0.83));
   };
   const totalOTU = calculateOTU() + previousDoses;
-  const getLimitExceededMessage = () => {
+  const getLimitExceededMessages = () => {
+    const messages = [];
     if (totalOTU > 2300) {
-      return "Limite 120h dépassée";
-    } else if (totalOTU > 2100) {
-      return "Limite 96h dépassée";
-    } else if (totalOTU > 1860) {
-      return "Limite 72h dépassée";
-    } else if (totalOTU > 1400) {
-      return "Limite 48h dépassée";
-    } else if (totalOTU > 850) {
-      return "Limite 24h dépassée";
+      messages.push("Limite 120h dépassée");
     }
-    return "";
+    if (totalOTU > 2100) {
+      messages.push("Limite 96h dépassée");
+    }
+    if (totalOTU > 1860) {
+      messages.push("Limite 72h dépassée");
+    }
+    if (totalOTU > 1400) {
+      messages.push("Limite 48h dépassée");
+    }
+    if (totalOTU > 850) {
+      messages.push("Limite 24h dépassée");
+    }
+    return messages;
   };
-  const limitMessage = getLimitExceededMessage();
+
   const plchProf = "Insérer une profondeur";
   const plchMin = "Insérer un temps";
   const plchDose = "Insérer une dose";
@@ -113,11 +118,11 @@ const OtuCalculator = () => {
           </View>
         </View>
         <View style={main.inputContainerResult}>
-          {limitMessage && (
-            <View style={result.tagContainerAlert}>
-              <Text style={result.tagText}>{getLimitExceededMessage()}</Text>
+          {getLimitExceededMessages().map((message, index) => (
+            <View key={index} style={result.tagContainerAlert}>
+              <Text style={result.tagText}>{message}</Text>
             </View>
-          )}
+          ))}
         </View>
       </View>
     </KeyboardAwareScrollView>
