@@ -2,7 +2,7 @@ import colors from "./colors";
 
 const button = {
   button: {
-    backgroundColor: colors.blue2,
+    backgroundColor: colors.blueAlertCol2,
     padding: 15,
     borderRadius: 7,
     alignItems: "center",

@@ -179,8 +179,8 @@ const AirPlongeSimple = () => {
             <View
               style={{
                 borderWidth: 2,
-                borderColor: colors.redCol2,
-                backgroundColor: colors.redCol1,
+                borderColor: colors.blueAlertCol2,
+                backgroundColor: colors.blueAlertCol1,
                 paddingVertical: 7,
                 paddingHorizontal: 10,
                 borderRadius: 7,

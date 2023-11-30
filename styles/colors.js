@@ -41,6 +41,9 @@ const colors = {
   // ALERT WARNING
   warningCol1: "#271806",
   warningCol2: "#CF943C",
+  //ALERT BLUE
+  blueAlertCol1: "#060727",
+  blueAlertCol2: "#513CCF",
 };
 
 export default colors;
