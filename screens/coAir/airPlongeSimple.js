@@ -15,41 +15,40 @@ const AirPlongeSimple = () => {
   const [workDuration, setWorkDuration] = useState(0);
   const [depth, setDepth] = useState(0);
   const [gps, setGps] = useState("");
+  const [time, setTime] = useState("18:00");
   const [stages, setStages] = useState({
     "3m": "",
     "6m": "",
     "9m": "",
     "12m": "",
   });
-  const findClosestPdtEntry = (profondeur, DT) => {
-    let matchingEntries = pdt
-      .filter((entry) => entry.Profondeur >= profondeur)
-      .sort((a, b) => {
-        if (a.Profondeur === b.Profondeur) {
-          return a.DT - b.DT;
-        }
-        return a.Profondeur - b.Profondeur;
-      });
-    let closestEntry = matchingEntries.find((entry) => entry.DT >= DT);
-    return closestEntry || matchingEntries[0];
-  };
-  const calculateGPS = (depth, DT) => {
-    const closestPdtEntry = findClosestPdtEntry(depth, DT);
-    return closestPdtEntry ? closestPdtEntry.GPS : "";
-  };
-  const handleDurationChange = (newDuration) => {
-    setWorkDuration(parseInt(newDuration, 10));
-  };
-  const handleDepthChange = (newDepth) => {
-    setDepth(parseInt(newDepth, 10));
-  };
-  const [time, setTime] = useState("18:00");
   const [departureTime, setDepartureTime] = useState(() => {
     const initialTime = new Date();
     const [hours, minutes] = "18:00".split(":").map(Number);
     initialTime.setHours(hours, minutes, 0, 0);
     return initialTime;
   });
+  const updateStages = (depth, workDuration) => {
+    const matchingEntry = pdt.find(
+      (entry) => entry.Profondeur === depth && entry.DT === workDuration
+    );
+    if (matchingEntry) {
+      setStages({
+        "3m": matchingEntry["3m"] || "0",
+        "6m": matchingEntry["6m"] || "0",
+        "9m": matchingEntry["9m"] || "0",
+        "12m": matchingEntry["12m"] || "0",
+      });
+    }
+  };
+  const calculateGPS = (depth, DT) =>
+    pdt.find((entry) => entry.Profondeur >= depth && entry.DT >= DT)?.GPS || "";
+  const handleDurationChange = (newDuration) => {
+    setWorkDuration(parseInt(newDuration, 10));
+  };
+  const handleDepthChange = (newDepth) => {
+    setDepth(parseInt(newDepth, 10));
+  };
   const handleDateChange = (selectedDate) => {
     const newTime = selectedDate || new Date();
     setTime(
@@ -60,24 +59,58 @@ const AirPlongeSimple = () => {
     );
     setDepartureTime(newTime);
   };
+  const calculateDR = (depth, stages) => {
+    const stageDepths = Object.keys(stages)
+      .map((k) => parseInt(k, 10))
+      .filter((k) => stages[`${k}m`] > 0);
+    let DR = 0;
+    if (stageDepths.length > 0) {
+      const closestStageDepth = Math.max(...stageDepths);
+      DR = Math.ceil((depth - closestStageDepth) / 12);
+    }
+    return DR;
+  };
+  const calculateChPAL = (stages) =>
+    Object.values(stages).filter((time) => parseInt(time) > 0).length * 0.5;
+  const calculateDTR = (depth, stages) => {
+    const DR = calculateDR(depth, stages);
+    const PAL = Object.values(stages).reduce(
+      (sum, time) => sum + (parseInt(time, 10) || 0),
+      0
+    );
+    const ChPAL = calculateChPAL(stages);
+    return DR + PAL + ChPAL;
+  };
+  const calculateExitTime = () => {
+    const DTR = calculateDTR(depth, stages);
+    const exitTime = new Date(
+      departureTime.getTime() + (DTR + workDuration) * 60000
+    );
+    return exitTime.toLocaleTimeString("fr-FR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
   useEffect(() => {
+    updateStages(depth, workDuration);
     setGps(calculateGPS(depth, workDuration));
   }, [depth, workDuration]);
   useEffect(() => {
-    const closestPdtEntry = findClosestPdtEntry(depth, workDuration);
-    if (closestPdtEntry) {
-      setGps(closestPdtEntry.GPS);
-      setStages({
-        "3m": closestPdtEntry["3m"] || "-",
-        "6m": closestPdtEntry["6m"] || "-",
-        "9m": closestPdtEntry["9m"] || "-",
-        "12m": closestPdtEntry["12m"] || "-",
+    const newGPS = calculateGPS(depth, workDuration);
+    setGps(newGPS);
+    if (newGPS) {
+      const newStages = { "3m": "", "6m": "", "9m": "", "12m": "" };
+      pdt.forEach((entry) => {
+        if (entry.Profondeur === depth && entry.DT === workDuration) {
+          Object.keys(stages).forEach((k) => {
+            newStages[k] = entry[k] || "-";
+          });
+        }
       });
-    } else {
-      setGps("");
-      setStages({ "3m": "", "6m": "", "9m": "", "12m": "" });
+      setStages(newStages);
     }
   }, [depth, workDuration]);
+
   return (
     <KeyboardAwareScrollView style={main.parentContainer}>
       <View style={main.container}>
@@ -115,7 +148,6 @@ const AirPlongeSimple = () => {
           <Text style={title.headerText}>GPS</Text>
         </View>
         <View style={[main.inputContainer, { marginTop: 20 }]}>
-          {/* Affichage des paliers si la valeur n'est pas vide */}
           {Object.keys(stages).map((key) => {
             const value = stages[key];
             return (
@@ -134,9 +166,28 @@ const AirPlongeSimple = () => {
             );
           })}
           <View style={result.resultParent}>
-            <Text style={result.resultTitle}>Groupe de plongée successif</Text>
+            <Text style={result.resultTitle}>
+              Groupe de plongées successives
+            </Text>
             <View style={result.tagContainer}>
               <Text style={result.tagText}>{gps}</Text>
+            </View>
+          </View>
+          <View style={main.mb_15}></View>
+          <View style={result.resultParent}>
+            <Text style={result.resultTitle}>Heure de sortie</Text>
+            <View
+              style={{
+                borderWidth: 2,
+                borderColor: colors.redCol2,
+                backgroundColor: colors.redCol1,
+                paddingVertical: 7,
+                paddingHorizontal: 10,
+                borderRadius: 7,
+                overflow: "hidden",
+              }}
+            >
+              <Text style={result.tagText}>{calculateExitTime()}</Text>
             </View>
           </View>
         </View>
@@ -144,5 +195,4 @@ const AirPlongeSimple = () => {
     </KeyboardAwareScrollView>
   );
 };
-
 export default AirPlongeSimple;
