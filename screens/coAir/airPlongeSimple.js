@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
-import { pdt } from "../../utils/pdt";
+import { pdt } from "../../utils/pdtmille";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   DatePickerComponent,
@@ -21,6 +21,7 @@ const AirPlongeSimple = () => {
     "6m": "",
     "9m": "",
     "12m": "",
+    "15m": "",
   });
   const [departureTime, setDepartureTime] = useState(() => {
     const initialTime = new Date();
@@ -28,21 +29,54 @@ const AirPlongeSimple = () => {
     initialTime.setHours(hours, minutes, 0, 0);
     return initialTime;
   });
-  const updateStages = (depth, workDuration) => {
+  useEffect(() => {
+    updateStages(depth, workDuration);
+  }, [depth, workDuration]);
+
+  const updateStages = (inputDepth, inputDuration) => {
+    const depths = pdt
+      .map((entry) => entry.Profondeur)
+      .filter((p) => p >= inputDepth);
+    const closestDepth = depths.length ? Math.min(...depths) : inputDepth;
+
+    const durations = pdt
+      .filter((entry) => entry.Profondeur === closestDepth)
+      .map((entry) => entry.DT)
+      .filter((dt) => dt >= inputDuration);
+    const closestDT = durations.length ? Math.min(...durations) : inputDuration;
+
     const matchingEntry = pdt.find(
-      (entry) => entry.Profondeur === depth && entry.DT === workDuration
+      (entry) => entry.Profondeur === closestDepth && entry.DT === closestDT
     );
+
     if (matchingEntry) {
       setStages({
-        "3m": matchingEntry["3m"] || "0",
-        "6m": matchingEntry["6m"] || "0",
-        "9m": matchingEntry["9m"] || "0",
-        "12m": matchingEntry["12m"] || "0",
+        "3m": matchingEntry["3m"] || "-",
+        "6m": matchingEntry["6m"] || "-",
+        "9m": matchingEntry["9m"] || "-",
+        "12m": matchingEntry["12m"] || "-",
+        "15m": matchingEntry["15m"] || "-",
       });
+      setGps(matchingEntry.GPS);
+    } else {
+      setStages({ "3m": "-", "6m": "-", "9m": "-", "12m": "-", "15m": "-" });
+      setGps("");
     }
   };
-  const calculateGPS = (depth, DT) =>
-    pdt.find((entry) => entry.Profondeur >= depth && entry.DT >= DT)?.GPS || "";
+
+  const calculateGPS = (depth, DT) => {
+    const closestDepthEntry = pdt
+      .filter((entry) => entry.Profondeur >= depth)
+      .sort((a, b) => a.Profondeur - b.Profondeur)[0];
+    const closestDTEntry = pdt
+      .filter(
+        (entry) =>
+          entry.Profondeur === closestDepthEntry.Profondeur && entry.DT >= DT
+      )
+      .sort((a, b) => a.DT - b.DT)[0];
+    return closestDTEntry ? closestDTEntry.GPS : "";
+  };
+
   const handleDurationChange = (newDuration) => {
     setWorkDuration(parseInt(newDuration, 10));
   };
@@ -91,25 +125,6 @@ const AirPlongeSimple = () => {
       minute: "2-digit",
     });
   };
-  useEffect(() => {
-    updateStages(depth, workDuration);
-    setGps(calculateGPS(depth, workDuration));
-  }, [depth, workDuration]);
-  useEffect(() => {
-    const newGPS = calculateGPS(depth, workDuration);
-    setGps(newGPS);
-    if (newGPS) {
-      const newStages = { "3m": "", "6m": "", "9m": "", "12m": "" };
-      pdt.forEach((entry) => {
-        if (entry.Profondeur === depth && entry.DT === workDuration) {
-          Object.keys(stages).forEach((k) => {
-            newStages[k] = entry[k] || "-";
-          });
-        }
-      });
-      setStages(newStages);
-    }
-  }, [depth, workDuration]);
 
   return (
     <KeyboardAwareScrollView style={main.parentContainer}>
@@ -145,7 +160,7 @@ const AirPlongeSimple = () => {
           />
         </View>
         <View style={main.header}>
-          <Text style={title.headerText}>GPS</Text>
+          <Text style={title.headerText}>RÉSULTATS CALCULS</Text>
         </View>
         <View style={[main.inputContainer, { marginTop: 20 }]}>
           {Object.keys(stages).map((key) => {
@@ -166,9 +181,7 @@ const AirPlongeSimple = () => {
             );
           })}
           <View style={result.resultParent}>
-            <Text style={result.resultTitle}>
-              Groupe de plongées successives
-            </Text>
+            <Text style={result.resultTitle}>GPS</Text>
             <View style={result.tagContainer}>
               <Text style={result.tagText}>{gps}</Text>
             </View>
