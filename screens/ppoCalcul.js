@@ -88,7 +88,7 @@ const PpoCalcul = () => {
               PpN² :
             </Text>
             <View style={result.tagContainer}>
-              <Text style={result.tagText}>{ppn2.toFixed(2)} BAR</Text>
+              <Text style={result.tagText}>{ppn2.toFixed(3)} BAR</Text>
             </View>
           </View>
         </View>
@@ -106,7 +106,7 @@ const PpoCalcul = () => {
               PEA :
             </Text>
             <View style={result.tagContainer}>
-              <Text style={result.tagText}>{pea.toFixed(2)}</Text>
+              <Text style={result.tagText}>{Math.round(pea)}</Text>
             </View>
           </View>
         </View>
