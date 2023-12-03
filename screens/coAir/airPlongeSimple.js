@@ -63,20 +63,6 @@ const AirPlongeSimple = () => {
       setGps("");
     }
   };
-
-  const calculateGPS = (depth, DT) => {
-    const closestDepthEntry = pdt
-      .filter((entry) => entry.Profondeur >= depth)
-      .sort((a, b) => a.Profondeur - b.Profondeur)[0];
-    const closestDTEntry = pdt
-      .filter(
-        (entry) =>
-          entry.Profondeur === closestDepthEntry.Profondeur && entry.DT >= DT
-      )
-      .sort((a, b) => a.DT - b.DT)[0];
-    return closestDTEntry ? closestDTEntry.GPS : "";
-  };
-
   const handleDurationChange = (newDuration) => {
     setWorkDuration(parseInt(newDuration, 10));
   };
