@@ -4,7 +4,6 @@ import { View, Text } from "react-native";
 import { crabe30, crabe40, crabe50, crabe60 } from "./ppoJson";
 import RNPickerSelect from "react-native-picker-select";
 import input from "../../styles/inputs";
-
 import { DepthInputComponent } from "../components/ReusableComponents";
 import colors from "../../styles/colors";
 import title from "../../styles/titles";

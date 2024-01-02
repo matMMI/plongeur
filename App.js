@@ -48,21 +48,11 @@ function Accueil({ navigation }) {
         <Text style={[styles.headerText, { backgroundColor: colors.blue1 }]}>
           CO - AIR
         </Text>
-        <View style={styles.buttonContainer}>
-          <ButtonText
-            style={{ backgroundColor: colors.blue2 }}
-            text="PLONGÉE SIMPLE"
-            onPress={() => navigation.navigate("AirPlongeSimple")}
-          />
-          <ButtonText
-            style={{ backgroundColor: colors.blue2 }}
-            text="REMONTÉE RAPIDE"
-            // onPress={() => navigation.navigate("AirRemonteRapide")}
-          />
+        <View style={{ width: "100%", paddingHorizontal: 10 }}>
           <ButtonText100
             style={{ backgroundColor: colors.blue2, width: "100%" }}
-            text="PLONGÉE ITÉRATIVE"
-            // onPress={() => navigation.navigate("AirPlongeIterative")}
+            text="PLONGÉE SIMPLE"
+            onPress={() => navigation.navigate("AirPlongeSimple")}
           />
         </View>
       </View>
@@ -78,25 +68,9 @@ function Accueil({ navigation }) {
         >
           SCR - CRABE
         </Text>
-        <View style={styles.buttonContainer}>
-          <ButtonText
-            style={{ backgroundColor: colors.crabeCol2 }}
-            text="PLONGÉE SIMPLE"
-            // onPress={() => navigation.navigate("AirPlongeSimple")}
-          />
-
-          <ButtonText
-            style={{ backgroundColor: colors.crabeCol2 }}
-            text="REMONTÉE RAPIDE"
-            // onPress={() => navigation.navigate("AirRemonteRapide")}
-          />
-          <ButtonText
-            style={{ backgroundColor: colors.crabeCol2 }}
-            text="PLONGÉE itérative"
-            // onPress={() => navigation.navigate("AirRemonteRapide")}
-          />
-          <ButtonText
-            style={{ backgroundColor: colors.crabeCol2 }}
+        <View style={{ width: "100%", paddingHorizontal: 10 }}>
+          <ButtonText100
+            style={{ backgroundColor: colors.crabeCol2, width: "100%" }}
             text="PpO² - PpN² - PEA"
             onPress={() => navigation.navigate("CrabePpoCalcul")}
           />

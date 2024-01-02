@@ -34,21 +34,22 @@ const AirPlongeSimple = () => {
   }, [depth, workDuration]);
 
   const updateStages = (inputDepth, inputDuration) => {
-    const depths = pdt
+    const availableDepths = pdt
       .map((entry) => entry.Profondeur)
       .filter((p) => p >= inputDepth);
-    const closestDepth = depths.length ? Math.min(...depths) : inputDepth;
-
-    const durations = pdt
+    const closestDepth = availableDepths.length
+      ? Math.min(...availableDepths)
+      : inputDepth;
+    const availableDurations = pdt
       .filter((entry) => entry.Profondeur === closestDepth)
       .map((entry) => entry.DT)
       .filter((dt) => dt >= inputDuration);
-    const closestDT = durations.length ? Math.min(...durations) : inputDuration;
-
+    const closestDT = availableDurations.length
+      ? Math.min(...availableDurations)
+      : inputDuration;
     const matchingEntry = pdt.find(
       (entry) => entry.Profondeur === closestDepth && entry.DT === closestDT
     );
-
     if (matchingEntry) {
       setStages({
         "3m": matchingEntry["3m"] || "-",
@@ -59,15 +60,22 @@ const AirPlongeSimple = () => {
       });
       setGps(matchingEntry.GPS);
     } else {
-      setStages({ "3m": "-", "6m": "-", "9m": "-", "12m": "-", "15m": "-" });
+      setStages({
+        "3m": "-",
+        "6m": "-",
+        "9m": "-",
+        "12m": "-",
+        "15m": "-",
+      });
       setGps("");
     }
   };
+
   const handleDurationChange = (newDuration) => {
-    setWorkDuration(parseInt(newDuration, 10));
+    setWorkDuration(parseFloat(newDuration, 10));
   };
   const handleDepthChange = (newDepth) => {
-    setDepth(parseInt(newDepth, 10));
+    setDepth(parseFloat(newDepth, 10));
   };
   const handleDateChange = (selectedDate) => {
     const newTime = selectedDate || new Date();
@@ -81,7 +89,7 @@ const AirPlongeSimple = () => {
   };
   const calculateDR = (depth, stages) => {
     const stageDepths = Object.keys(stages)
-      .map((k) => parseInt(k, 10))
+      .map((k) => parseFloat(k, 10))
       .filter((k) => stages[`${k}m`] > 0);
     let DR = 0;
     if (stageDepths.length > 0) {
@@ -91,11 +99,11 @@ const AirPlongeSimple = () => {
     return DR;
   };
   const calculateChPAL = (stages) =>
-    Object.values(stages).filter((time) => parseInt(time) > 0).length * 0.5;
+    Object.values(stages).filter((time) => parseFloat(time) > 0).length * 0.5;
   const calculateDTR = (depth, stages) => {
     const DR = calculateDR(depth, stages);
     const PAL = Object.values(stages).reduce(
-      (sum, time) => sum + (parseInt(time, 10) || 0),
+      (sum, time) => sum + (parseFloat(time, 10) || 0),
       0
     );
     const ChPAL = calculateChPAL(stages);

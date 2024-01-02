@@ -81,7 +81,7 @@ export const MinutesInputComponent = ({
   const handleMinutesChange = (text) => {
     const normalizedText = convertInput(text);
     setLocalMinutes(normalizedText);
-    const value = normalizedText === "" ? 0 : parseInt(normalizedText, 10);
+    const value = normalizedText === "" ? 0 : parseFloat(normalizedText, 10);
     onMinutesChange(value);
   };
   return (
@@ -110,7 +110,7 @@ export const OxyInputComponent = ({
   const handleDepthChange = (text) => {
     const normalizedText = convertInput(text);
     setLocalDepth(normalizedText);
-    const value = normalizedText === "" ? 0 : parseInt(normalizedText, 10);
+    const value = normalizedText === "" ? 0 : parseFloat(normalizedText, 10);
     onOxyChange(value);
   };
   return (
@@ -123,6 +123,36 @@ export const OxyInputComponent = ({
     />
   );
 };
+
+// Profondeur
+export const DepthInputComponent = ({
+  onDepthChange,
+  depth = "",
+  style,
+  placeholder,
+}) => {
+  const { setDepth } = useGlobalState();
+  const [localDepth, setLocalDepth] = useState(depth);
+  useEffect(() => {
+    setLocalDepth(depth);
+  }, [depth]);
+  const handleDepthChange = (text) => {
+    const normalizedText = convertInput(text);
+    setLocalDepth(normalizedText);
+    const value = normalizedText === "" ? 0 : parseFloat(normalizedText, 10);
+    onDepthChange(value);
+  };
+  return (
+    <TextInput
+      style={[input.inputCoAir, style]}
+      value={String(localDepth)}
+      keyboardType="numeric"
+      onChangeText={handleDepthChange}
+      placeholder={placeholder}
+    />
+  );
+};
+
 // Picker components
 export const PickerInputComponent = ({
   style,
@@ -146,35 +176,6 @@ export const PickerInputComponent = ({
       style={[input.inputCoAir, style]}
       onChangeText={handleValueChange}
       value={inputValue}
-      placeholder={placeholder}
-    />
-  );
-};
-
-// Profondeur
-export const DepthInputComponent = ({
-  onDepthChange,
-  depth = "",
-  style,
-  placeholder,
-}) => {
-  const { setDepth } = useGlobalState();
-  const [localDepth, setLocalDepth] = useState(depth);
-  useEffect(() => {
-    setLocalDepth(depth);
-  }, [depth]);
-  const handleDepthChange = (text) => {
-    const normalizedText = convertInput(text);
-    setLocalDepth(normalizedText);
-    const value = normalizedText === "" ? 0 : parseInt(normalizedText, 10);
-    onDepthChange(value);
-  };
-  return (
-    <TextInput
-      style={[input.inputCoAir, style]}
-      value={String(localDepth)}
-      keyboardType="numeric"
-      onChangeText={handleDepthChange}
       placeholder={placeholder}
     />
   );

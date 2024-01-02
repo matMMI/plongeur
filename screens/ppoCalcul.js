@@ -18,6 +18,10 @@ const PpoCalcul = () => {
   const handleOxyChange = (newOxy) => {
     setTeneurOxy(parseFloat(newOxy));
   };
+  const truncate = (number, decimals) => {
+    const factor = 10 ** decimals;
+    return Math.floor(number * factor) / factor;
+  };
   const calculerPpo = () => {
     if (!profondeur || !teneurOxy) return { ppo2: 0, ppn2: 0, pea: 0 };
     const pressionAmbiante = profondeur / 10 + 1;
@@ -25,7 +29,13 @@ const PpoCalcul = () => {
     const n2 = 100 - teneurOxy;
     const ppn2 = pressionAmbiante * (n2 / 100);
     const pea = (profondeur + 10) * (n2 / 79) - 10;
-    return { ppo2, ppn2, pea };
+
+    // Utiliser truncate pour éviter l'arrondi
+    return {
+      ppo2: truncate(ppo2, 2),
+      ppn2: truncate(ppn2, 2),
+      pea: truncate(pea, 2), // Supposant que vous voulez aussi tronquer pea
+    };
   };
   const { ppo2, ppn2, pea } = calculerPpo();
   const plchProf = "Insérer une profondeur";
@@ -88,7 +98,7 @@ const PpoCalcul = () => {
               PpN² :
             </Text>
             <View style={result.tagContainer}>
-              <Text style={result.tagText}>{ppn2.toFixed(3)} BAR</Text>
+              <Text style={result.tagText}>{ppn2.toFixed(2)} BAR</Text>
             </View>
           </View>
         </View>
